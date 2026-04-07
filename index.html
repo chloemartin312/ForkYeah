@@ -15,20 +15,36 @@
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
+
+
+  <!-- Load Lit Navbar Component -->
+  <script type="module" src="js/forkyeah-navbar.js"></script>
+  <script type="module" src="js/forkyeah-searchbar.js"></script>
 </head>
 <body>
 
-    <header>
-        <h1>ForkYeah </h1>
-        <h1>Wonyoung</h1>
-        <h1>Wonyoung</h1>
-    </header>
+  <!-- ForkYeah Navbar Component -->
+  <forkyeah-navbar></forkyeah-navbar>
+  <forkyeah-searchbar></forkyeah-searchbar>
 
-    <main>
-        <p>HCDD 340 project.</p>
-        <h> FORK YEAH!!!!!!!!!!!! </h>
-    </main>
+  <script>
+  const searchbar = document.querySelector('forkyeah-searchbar');
 
-    <script src="js/main.js"></script>
+  // Listen to live input changes
+  searchbar.addEventListener('search-changed', e => {
+    console.log('Query changed:', e.detail.query);
+  });
+
+  // Listen to form submit
+  searchbar.addEventListener('search-submit', e => {
+    console.log('Search submitted:', e.detail.query);
+    // You can trigger search logic here
+  });
+</script>
+
+  <main>
+    <h1>Welcome to ForkYeah 🍴</h1>
+  </main>
+
 </body>
 </html>
