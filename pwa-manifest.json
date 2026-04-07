@@ -1,0 +1,21 @@
+{
+    "name": "ForkYeah",
+    "short_name": "ForkYeah",
+    "description": "HCDD 340 Project",
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#F2665E",
+    "background_color": "#96BEE6",
+    "icons": [
+        {
+            "src": "icons/fork-yeah-icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/fork-yeah-icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
