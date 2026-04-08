@@ -11,7 +11,7 @@
     <link rel="icon" href="icons/fork-yeah-icon-192.png">
     <link rel="apple-touch-icon" href="icons/fork-yeah-icon-192.png">
 
-    <title>My Project</title>
+    <title>ForkYeah</title>
     
     <link rel="stylesheet" href="css/style.css">
 
@@ -24,37 +24,47 @@
   <script type="module" src="js/forkyeah-navbar.js"></script>
   <script type="module" src="js/forkyeah-searchbar.js"></script>
   <script type="module" src="js/forkyeah-infocard.js"></script>
+  <script type="module" src="js/forkyeah-map.js"></script>
 </head>
+
+
 <body>
 
   <!-- THEN THIS IS PLACEMENT FOR THE COMPONENTS -->
   <forkyeah-navbar></forkyeah-navbar>
   <forkyeah-searchbar></forkyeah-searchbar>
   <forkyeah-infocard></forkyeah-infocard>
+  <forkyeah-map></forkyeah-map>
 
 
   <!-- Searchbar javascript logic -->
-  <script>
-  const searchbar = document.querySelector('forkyeah-searchbar');
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const searchbar = document.querySelector('forkyeah-searchbar');
 
-  // Listen to live input changes
-  searchbar.addEventListener('search-changed', e => {
-    console.log('Query changed:', e.detail.query);
-  });
+    if (searchbar) {
+      searchbar.addEventListener('search-changed', e => {
+        console.log('Query changed:', e.detail.query);
+      });
 
-  // Listen to form submit
-  searchbar.addEventListener('search-submit', e => {
-    console.log('Search submitted:', e.detail.query);
-    // You can trigger search logic here
+      searchbar.addEventListener('search-submit', e => {
+        console.log('Search submitted:', e.detail.query);
+      });
+    }
   });
 </script>
 
 
-
-
-
-  <main>
+<main>
   </main>
+
+  <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(() => console.log("Service Worker Registered"))
+      .catch(err => console.error("SW failed:", err));
+  }
+</script>
 
 </body>
 </html>
