@@ -16,55 +16,53 @@
     <link rel="stylesheet" href="css/style.css">
 
 
-
-
-
-
-    <!-- THIS IS WHERE YOU CALL THE COMPONENTS -->
-  <script type="module" src="js/forkyeah-navbar.js"></script>
-  <script type="module" src="js/forkyeah-searchbar.js"></script>
-  <script type="module" src="js/forkyeah-infocard.js"></script>
-  <script type="module" src="js/forkyeah-map.js"></script>
+    <!-- COMPONENTS -->
+    <script type="module" src="js/forkyeah-navbar.js"></script>
+    <script type="module" src="js/forkyeah-searchbar.js"></script>
+    <script type="module" src="js/forkyeah-infocard.js"></script>
+    <script type="module" src="js/forkyeah-map.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 
 
 <body>
 
-  <!-- THEN THIS IS PLACEMENT FOR THE COMPONENTS -->
   <forkyeah-navbar></forkyeah-navbar>
   <forkyeah-searchbar></forkyeah-searchbar>
   <forkyeah-infocard></forkyeah-infocard>
+
+  <!-- MAP COMPONENT -->
   <forkyeah-map></forkyeah-map>
 
 
-  <!-- Searchbar javascript logic -->
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const searchbar = document.querySelector('forkyeah-searchbar');
-
-    if (searchbar) {
-      searchbar.addEventListener('search-changed', e => {
-        console.log('Query changed:', e.detail.query);
-      });
-
-      searchbar.addEventListener('search-submit', e => {
-        console.log('Search submitted:', e.detail.query);
-      });
-    }
-  });
-</script>
-
-
-<main>
-  </main>
-
+  <!-- Searchbar logic -->
   <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(() => console.log("Service Worker Registered"))
-      .catch(err => console.error("SW failed:", err));
-  }
-</script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const searchbar = document.querySelector('forkyeah-searchbar');
+
+      if (searchbar) {
+        searchbar.addEventListener('search-changed', e => {
+          console.log('Query changed:', e.detail.query);
+        });
+
+        searchbar.addEventListener('search-submit', e => {
+          console.log('Search submitted:', e.detail.query);
+        });
+      }
+    });
+  </script>
+
+
+  <main></main>
+
+  <!-- Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(() => console.log("Service Worker Registered"))
+        .catch(err => console.error("SW failed:", err));
+    }
+  </script>
 
 </body>
 </html>
