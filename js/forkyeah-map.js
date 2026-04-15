@@ -7,7 +7,7 @@ const MIN_ZOOM    = 13;
 const DEBOUNCE_MS = 300;
 const API_BASE    = 'https://data.cityofnewyork.us/resource/43nn-pn8j.json';
 
-// camis = unique restaurant ID, used to deduplicate across pan/zoom fetches
+// camis = unique NYC DOH restaurant ID — used to deduplicate across pan/zoom
 const API_SELECT  = 'camis,latitude,longitude,dba,building,street,cuisine_description';
 
 const SHADOW_CSS_HREFS = [
@@ -20,15 +20,21 @@ export class ForkYeahMap extends LitElement {
 
   static get styles() {
     return css`
+      /*
+       * Width/height are driven by CSS custom properties so the parent
+       * can control sizing without touching this file:
+       *
+       *   forkyeah-map { --map-width: 100%; --map-height: 300px; }
+       */
       :host {
         display: block;
-        width: 700px;
-        height: 400px;
+        width:  var(--map-width,  100%);
+        height: var(--map-height, 400px);
       }
+
       #map {
         width: 100%;
         height: 100%;
-        border-radius: 12px;
       }
     `;
   }
@@ -37,8 +43,8 @@ export class ForkYeahMap extends LitElement {
     super();
     this._map           = null;
     this._markerLayer   = null;   // plain LayerGroup — no clustering
-    this._loadedIds     = new Set(); // camis IDs already on the map
-    this._fetchedBounds = [];     // list of L.LatLngBounds already fetched
+    this._loadedIds     = new Set(); // camis IDs already rendered
+    this._fetchedBounds = [];     // L.LatLngBounds objects already fetched
     this._debounceTimer = null;
     this._abortCtrl     = null;
   }
@@ -58,13 +64,17 @@ export class ForkYeahMap extends LitElement {
 
   // ─── Asset Loading ──────────────────────────────────────────────────────────
 
+  /**
+   * Leaflet's CSS must be inside the shadow root to style the map correctly.
+   * <link> tags in <head> cannot pierce the shadow DOM boundary.
+   */
   _injectShadowCSS() {
     const promises = SHADOW_CSS_HREFS.map(href => {
       if (this.renderRoot.querySelector(`link[href="${href}"]`)) return Promise.resolve();
       return new Promise(resolve => {
         const link = Object.assign(document.createElement('link'), { rel: 'stylesheet', href });
         link.addEventListener('load',  resolve, { once: true });
-        link.addEventListener('error', resolve, { once: true });
+        link.addEventListener('error', resolve, { once: true }); // don't block on CDN errors
         this.renderRoot.appendChild(link);
       });
     });
@@ -87,9 +97,10 @@ export class ForkYeahMap extends LitElement {
       keepBuffer: 2,
     }).addTo(this._map);
 
-    // Plain layer group — individual pins, no clustering
+    // Plain layer group — every restaurant gets its own individual pin
     this._markerLayer = L.layerGroup().addTo(this._map);
 
+    // Ensure Leaflet measures the container after the host has painted
     requestAnimationFrame(() => this._map.invalidateSize());
 
     this._loadRestaurantsInView();
@@ -103,8 +114,8 @@ export class ForkYeahMap extends LitElement {
   // ─── Data Fetching ──────────────────────────────────────────────────────────
 
   /**
-   * Returns true if we've already fetched data covering these bounds,
-   * so we skip redundant API calls when panning back to a visited area.
+   * Returns true if any previously fetched bounds fully contains the current view.
+   * Prevents redundant API calls when panning back to an already-loaded area.
    */
   _alreadyFetched(bounds) {
     return this._fetchedBounds.some(b => b.contains(bounds));
@@ -113,7 +124,8 @@ export class ForkYeahMap extends LitElement {
   async _loadRestaurantsInView() {
     const zoom = this._map.getZoom();
 
-    // Below threshold — hide all markers to avoid clutter at city-wide view
+    // Below zoom threshold — clear everything and reset so zooming back in
+    // starts fresh without stale state from a different zoom level.
     if (zoom < MIN_ZOOM) {
       this._markerLayer.clearLayers();
       this._loadedIds.clear();
@@ -122,15 +134,14 @@ export class ForkYeahMap extends LitElement {
     }
 
     const bounds = this._map.getBounds();
-
-    // Skip fetch if current view is fully covered by a previous request
     if (this._alreadyFetched(bounds)) return;
 
+    // Cancel any previous in-flight request — stale data must never overwrite fresh data
     this._abortCtrl?.abort();
     this._abortCtrl = new AbortController();
 
     const url = new URL(API_BASE);
-    url.searchParams.set('$select', API_SELECT);
+    url.searchParams.set('$select', API_SELECT); // only the 7 fields we actually use
     url.searchParams.set('$where',
       `latitude>${bounds.getSouth()} AND latitude<${bounds.getNorth()} AND longitude>${bounds.getWest()} AND longitude<${bounds.getEast()}`
     );
@@ -141,9 +152,7 @@ export class ForkYeahMap extends LitElement {
       if (!res.ok) throw new Error(`API error ${res.status}`);
       const data = await res.json();
 
-      // Record this bounds as fetched so panning back won't re-request it
       this._fetchedBounds.push(bounds);
-
       this._addNewMarkers(data);
     } catch (err) {
       if (err.name !== 'AbortError') console.error('Failed to load restaurants:', err);
@@ -154,7 +163,6 @@ export class ForkYeahMap extends LitElement {
 
   _addNewMarkers(data) {
     data.forEach(r => {
-      // Skip if missing coords or already rendered
       if (!r.latitude || !r.longitude || !r.camis) return;
       if (this._loadedIds.has(r.camis)) return;
 

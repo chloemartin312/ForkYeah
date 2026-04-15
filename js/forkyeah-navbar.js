@@ -2,38 +2,39 @@ import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/al
 
 export class ForkYeahNavbar extends LitElement {
   static get tag() {
-    return "forkyeah-navbar";
+    return 'forkyeah-navbar';
   }
 
   static get properties() {
     return {
-      menu: { type: Array },
-      activePage: { type: String },
+      _openDropdown: { type: String, state: true },
     };
   }
 
   constructor() {
     super();
-    this.activePage = this.getActivePageFromURL();
-    this.menu = [
-      { label: "Home", page: "home" },
-      { label: "Explore", page: "explore" },
-      { label: "Reviews", page: "reviews" }
-    ];
+    this._openDropdown = null;
 
-    window.addEventListener("popstate", () => {
-      this.activePage = this.getActivePageFromURL();
-    });
+    // Close dropdown when clicking outside the component
+    this._onOutsideClick = (e) => {
+      if (!this.renderRoot.contains(e.target)) {
+        this._openDropdown = null;
+      }
+    };
   }
 
-  getActivePageFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get("page") || "home";
+  connectedCallback() {
+    super.connectedCallback();
+    document.addEventListener('click', this._onOutsideClick);
   }
 
-  navigate(page) {
-    window.history.pushState({}, "", `?page=${page}`);
-    this.activePage = page;
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    document.removeEventListener('click', this._onOutsideClick);
+  }
+
+  _toggleDropdown(name) {
+    this._openDropdown = this._openDropdown === name ? null : name;
   }
 
   static get styles() {
@@ -41,64 +42,168 @@ export class ForkYeahNavbar extends LitElement {
       :host {
         display: block;
         width: 100%;
-        background: #ff6b6b;
-        color: white;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Barlow Condensed', sans-serif;
       }
 
+      /* ── Nav bar ── */
       nav {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 16px 32px;
+        align-items: stretch;
+        border-bottom: 3px solid #E8192C;
+        background: #fff;
       }
 
-      .logo {
-        font-size: 1.5rem;
-        font-weight: 600;
+      .brand {
+        font-weight: 900;
+        font-size: 20px;
+        letter-spacing: 0.06em;
+        line-height: 1.1;
+        text-transform: uppercase;
+        padding: 12px 18px;
+        flex-shrink: 0;
+        color: #000;
         cursor: pointer;
+        user-select: none;
       }
 
-      ul {
-        list-style: none;
+      .vsep {
+        width: 2px;
+        background: #E8192C;
+        flex-shrink: 0;
+      }
+
+      /* ── Filter buttons ── */
+      .filters {
         display: flex;
-        gap: 24px;
-        margin: 0;
-        padding: 0;
+        flex: 1;
+        align-items: stretch;
       }
 
-      li {
+      .filter-wrap {
+        position: relative;
+        display: flex;
+        flex: 1;
+        border-right: 1px solid #eaeaea;
+      }
+
+      .filter-wrap:last-child {
+        border-right: none;
+      }
+
+      .filter-btn {
+        flex: 1;
+        background: none;
+        border: none;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 700;
+        font-size: 12.5px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #111;
         cursor: pointer;
-        transition: opacity 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        padding: 10px 8px;
+        transition: background 0.15s;
       }
 
-      li:hover {
-        opacity: 0.7;
+      .filter-btn:hover {
+        background: #fafafa;
       }
 
-      .active {
-        border-bottom: 2px solid white;
-        padding-bottom: 2px;
-        font-weight: 600;
+      .filter-btn .chev {
+        font-size: 8px;
+        color: #E8192C;
+        line-height: 1;
+      }
+
+      /* ── Dropdown panel ── */
+      .dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 160px;
+        background: #fff;
+        border: 2px solid #E8192C;
+        border-top: none;
+        z-index: 100;
+        flex-direction: column;
+      }
+
+      .dropdown.open {
+        display: flex;
+      }
+
+      .dropdown-item {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 9px 14px;
+        cursor: pointer;
+        color: #111;
+        transition: background 0.12s, color 0.12s;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .dropdown-item:last-child {
+        border-bottom: none;
+      }
+
+      .dropdown-item:hover {
+        background: #E8192C;
+        color: #fff;
       }
     `;
   }
 
+  // Dropdown options per filter
+  _options() {
+    return {
+      COUNTRY: ['All Countries', 'American', 'Chinese', 'Italian', 'Japanese', 'Mexican', 'Indian', 'Thai'],
+      BOROUGH: ['All Boroughs', 'Manhattan', 'Brooklyn', 'Queens', 'The Bronx', 'Staten Island'],
+      PRICE:   ['Any Price', '$ Inexpensive', '$$ Moderate', '$$$ Expensive', '$$$$ Very Expensive'],
+    };
+  }
+
   render() {
+    const opts = this._options();
+
     return html`
       <nav>
-        <div class="logo" @click="${() => this.navigate('home')}">
-          🍴 ForkYeah
+        <!-- Left brand -->
+        <div class="brand">FORK<br>YEAH!</div>
+        <div class="vsep"></div>
+
+        <!-- Filter dropdowns -->
+        <div class="filters">
+          ${['COUNTRY', 'BOROUGH', 'PRICE'].map(name => html`
+            <div class="filter-wrap">
+              <button
+                class="filter-btn"
+                @click="${() => this._toggleDropdown(name)}"
+              >
+                ${name}
+                <span class="chev">▼</span>
+              </button>
+              <div class="dropdown ${this._openDropdown === name ? 'open' : ''}">
+                ${opts[name].map(opt => html`
+                  <div class="dropdown-item" @click="${() => { this._openDropdown = null; }}">${opt}</div>
+                `)}
+              </div>
+            </div>
+          `)}
         </div>
 
-        <ul>
-          ${this.menu.map(item => html`
-            <li class="${this.activePage === item.page ? 'active' : ''}"
-                @click="${() => this.navigate(item.page)}">
-              ${item.label}
-            </li>
-          `)}
-        </ul>
+        <div class="vsep"></div>
+
+        <!-- Right brand -->
+        <div class="brand" style="text-align:right">FORK<br>YEAH!</div>
       </nav>
     `;
   }
