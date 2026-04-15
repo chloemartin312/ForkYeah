@@ -37,130 +37,192 @@ export class ForkYeahNavbar extends LitElement {
     this._openDropdown = this._openDropdown === name ? null : name;
   }
 
-  static get styles() {
-    return css`
-      :host {
-        display: block;
-        width: 100%;
-        font-family: 'Barlow Condensed', sans-serif;
-      }
+static get styles() {
+  return css`
+    :host {
+      display: block;
+      width: 100%;
+      font-family: 'Barlow Condensed', sans-serif;
+    }
 
-      /* ── Nav bar ── */
-      nav {
-        display: flex;
-        align-items: stretch;
-        border-bottom: 3px solid #E8192C;
-        background: #fff;
-      }
+    /* ── Nav bar ── */
+    nav {
+      display: flex;
+      align-items: stretch;
+      border-bottom: 10px solid #ff0019;
+      background: #fff;
+    }
 
-      .brand {
-        font-weight: 900;
-        font-size: 20px;
-        letter-spacing: 0.06em;
-        line-height: 1.1;
-        text-transform: uppercase;
-        padding: 12px 18px;
-        flex-shrink: 0;
-        color: #000;
-        cursor: pointer;
-        user-select: none;
-      }
+    .brand {
+      font-weight: 600;
+      font-size: 36px;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      text-transform: uppercase;
+      padding: 18px 18px;
+      flex-shrink: 0;
+      color: #ff0000;
+      cursor: pointer;
+      user-select: none;
+    }
 
-      .vsep {
-        width: 2px;
-        background: #E8192C;
-        flex-shrink: 0;
-      }
+    .vsep {
+      position: relative;
+      width: 4px;
+    }
 
-      /* ── Filter buttons ── */
-      .filters {
-        display: flex;
-        flex: 1;
-        align-items: stretch;
-      }
+    .vsep::before {
+      content: "";
+      position: absolute;
+      top: 20%;
+      bottom: 20%;
+      left: 0;
+      border-left: 1px solid #ff0000;
+    }
 
-      .filter-wrap {
-        position: relative;
-        display: flex;
-        flex: 1;
-        border-right: 1px solid #eaeaea;
-      }
+    /* ── Filter buttons ── */
+    .filters {
+      display: flex;
+      flex: 1;
+      align-items: stretch;
+    }
 
-      .filter-wrap:last-child {
-        border-right: none;
-      }
+    .filter-wrap {
+      position: relative;
+      display: flex;
+      flex: 1;
+    }
 
-      .filter-btn {
-        flex: 1;
-        background: none;
-        border: none;
-        font-family: 'Barlow Condensed', sans-serif;
-        font-weight: 700;
-        font-size: 12.5px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: #111;
-        cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 3px;
-        padding: 10px 8px;
-        transition: background 0.15s;
-      }
+    .filter-wrap::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 20%;
+      bottom: 20%;
+      border-right: 1px solid #ff0000;
+    }
 
-      .filter-btn:hover {
-        background: #fafafa;
-      }
+    .filter-wrap:last-child::after {
+      display: none;
+    }
 
-      .filter-btn .chev {
-        font-size: 8px;
-        color: #E8192C;
-        line-height: 1;
-      }
 
-      /* ── Dropdown panel ── */
-      .dropdown {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        min-width: 160px;
-        background: #fff;
-        border: 2px solid #E8192C;
-        border-top: none;
-        z-index: 100;
-        flex-direction: column;
-      }
+    /* ── Button base ── */
+    .filter-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
 
-      .dropdown.open {
-        display: flex;
-      }
+      padding: 12px 20px;
+      cursor: pointer;
 
-      .dropdown-item {
-        font-family: 'Barlow Condensed', sans-serif;
-        font-weight: 700;
-        font-size: 12px;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        padding: 9px 14px;
-        cursor: pointer;
-        color: #111;
-        transition: background 0.12s, color 0.12s;
-        border-bottom: 1px solid #f0f0f0;
-      }
+      background: none;
+      border: none;
 
-      .dropdown-item:last-child {
-        border-bottom: none;
-      }
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 22px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
 
-      .dropdown-item:hover {
-        background: #E8192C;
-        color: #fff;
-      }
-    `;
-  }
+      color: #ff0000;
+
+      position: relative;   /* added */
+      overflow: hidden;     /* added */
+
+      transition: color 0.2s ease;
+    }
+
+    /* ── LIMITED Hover layer ── */
+    .filter-btn::before {
+      content: "";
+      position: absolute;
+      top: 20%;     /* controls vertical size */
+      bottom: 20%;
+      left: 0;
+      right: 0;
+
+      background: repeating-linear-gradient(
+        45deg,
+        #ff0000,
+        #ff0000 8px,
+        #ff0000 8px,
+        #ff0000 16px
+      );
+
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      z-index: 0;
+    }
+
+    .filter-btn:hover::before {
+      opacity: 1;
+    }
+
+    /* keep text above */
+    .filter-btn * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .filter-btn:hover {
+      color: #ffffff;
+    }
+
+    .filter-btn:hover .chev {
+      color: #ffffff;
+    }
+
+    .filter-btn .chev {
+      font-size: 8px;
+      color: #E8192C;
+      line-height: 1;
+      transition: color 0.2s ease;
+    }
+
+    /* ── Dropdown panel ── */
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 160px;
+      background: #fff;
+      border: 2px solid #E8192C;
+      border-top: none;
+      z-index: 100;
+      flex-direction: column;
+    }
+
+    .dropdown.open {
+      display: flex;
+    }
+
+    .dropdown-item {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 9px 14px;
+      cursor: pointer;
+      color: #111;
+      transition: background 0.12s, color 0.12s;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .dropdown-item:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-item:hover {
+      background: #E8192C;
+      color: #fff;
+    }
+  `;
+}
 
   // Dropdown options per filter
   _options() {
