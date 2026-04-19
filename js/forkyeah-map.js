@@ -13,7 +13,7 @@ const SHADOW_CSS_HREFS = [
   'https://unpkg.com/leaflet/dist/leaflet.css',
 ];
 
-// ─── Cuisine filter mapping (filter label → SoQL LIKE value) ─────────────────
+// ─── Cuisine filter mapping ───────────────────────────────────────────────────
 const CUISINE_MAP = {
   'American':  'American',
   'Chinese':   'Chinese',
@@ -24,8 +24,7 @@ const CUISINE_MAP = {
   'Thai':      'Thai',
 };
 
-// ─── Borough filter mapping (filter label → API boro string) ─────────────────
-// The NYC DOH dataset stores boro as mixed-case strings.
+// ─── Borough filter mapping ───────────────────────────────────────────────────
 const BOROUGH_MAP = {
   'Manhattan':   'Manhattan',
   'Brooklyn':    'Brooklyn',
@@ -34,7 +33,7 @@ const BOROUGH_MAP = {
   'Staten Island': 'Staten Island',
 };
 
-// ─── Red pin icon (SVG) ───────────────────────────────────────────────────────
+// ─── Red pin icon ─────────────────────────────────────────────────────────────
 const RED_PIN_SVG = `
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 36" width="24" height="36">
     <path d="M12 0C5.373 0 0 5.373 0 12c0 9 12 24 12 24S24 21 24 12C24 5.373 18.627 0 12 0z"
@@ -43,7 +42,6 @@ const RED_PIN_SVG = `
   </svg>
 `;
 
-// ─── Component ────────────────────────────────────────────────────────────────
 export class ForkYeahMap extends LitElement {
   static get tag() { return 'forkyeah-map'; }
 
@@ -60,7 +58,6 @@ export class ForkYeahMap extends LitElement {
         height: 100%;
       }
 
-      /* Custom red pin — override Leaflet default icon wrapper */
       .fy-red-pin {
         background: none !important;
         border: none !important;
@@ -77,21 +74,20 @@ export class ForkYeahMap extends LitElement {
     this._debounceTimer = null;
     this._abortCtrl     = null;
 
-    // Active filters (populated by forkyeah-navbar via document event)
+    // ✅ NEW: store last fetched data
+    this._currentData = [];
+
     this._filters = {
       COUNTRY: 'All Countries',
       BOROUGH: 'All Boroughs',
       PRICE:   'Any Price',
     };
 
-    // Listen for filter changes from any navbar instance
     this._onFilter = (e) => {
       this._filters = e.detail;
       this._resetAndReload();
     };
   }
-
-  // ─── Lifecycle ──────────────────────────────────────────────────────────────
 
   firstUpdated() {
     this._injectShadowCSS().then(() => this._initMap());
@@ -106,8 +102,6 @@ export class ForkYeahMap extends LitElement {
     document.removeEventListener('forkyeah-filter', this._onFilter);
   }
 
-  // ─── Asset Loading ──────────────────────────────────────────────────────────
-
   _injectShadowCSS() {
     const promises = SHADOW_CSS_HREFS.map(href => {
       if (this.renderRoot.querySelector(`link[href="${href}"]`)) return Promise.resolve();
@@ -121,8 +115,6 @@ export class ForkYeahMap extends LitElement {
     return Promise.all(promises);
   }
 
-  // ─── Map Initialisation ─────────────────────────────────────────────────────
-
   _initMap() {
     this._map = L.map(this.renderRoot.querySelector('#map'), {
       maxBounds: NYC_BOUNDS,
@@ -132,7 +124,7 @@ export class ForkYeahMap extends LitElement {
     }).setView(NYC_CENTER, 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      attribution: '&copy; OpenStreetMap contributors',
       updateWhenIdle: true,
       keepBuffer: 2,
     }).addTo(this._map);
@@ -149,15 +141,11 @@ export class ForkYeahMap extends LitElement {
     });
   }
 
-  // ─── Filter Helpers ──────────────────────────────────────────────────────────
-
-  /** Build additional SoQL WHERE clauses from active filters */
   _filterClauses() {
     const clauses = [];
 
     const country = this._filters.COUNTRY;
     if (country && CUISINE_MAP[country]) {
-      // Case-insensitive contains search
       clauses.push(`upper(cuisine_description) like '%${CUISINE_MAP[country].toUpperCase()}%'`);
     }
 
@@ -166,12 +154,9 @@ export class ForkYeahMap extends LitElement {
       clauses.push(`upper(boro)='${BOROUGH_MAP[borough].toUpperCase()}'`);
     }
 
-    // Price is not available in the NYC DOH inspection API — ignored.
-
     return clauses;
   }
 
-  /** Clear all markers and fetch state, then reload from scratch */
   _resetAndReload() {
     this._markerLayer?.clearLayers();
     this._loadedIds.clear();
@@ -179,8 +164,6 @@ export class ForkYeahMap extends LitElement {
     this._abortCtrl?.abort();
     if (this._map) this._loadRestaurantsInView();
   }
-
-  // ─── Data Fetching ──────────────────────────────────────────────────────────
 
   _alreadyFetched(bounds) {
     return this._fetchedBounds.some(b => b.contains(bounds));
@@ -202,7 +185,6 @@ export class ForkYeahMap extends LitElement {
     this._abortCtrl?.abort();
     this._abortCtrl = new AbortController();
 
-    // Build WHERE clause: bounding box + active filters
     const bboxClause = `latitude>${bounds.getSouth()} AND latitude<${bounds.getNorth()} AND longitude>${bounds.getWest()} AND longitude<${bounds.getEast()}`;
     const extraClauses = this._filterClauses();
     const whereClause = [bboxClause, ...extraClauses].join(' AND ');
@@ -218,15 +200,32 @@ export class ForkYeahMap extends LitElement {
       const data = await res.json();
 
       this._fetchedBounds.push(bounds);
-      this._addNewMarkers(data);
+
+      // ✅ store data
+      this._currentData = data;
+
+      this._renderFilteredMarkers();
     } catch (err) {
       if (err.name !== 'AbortError') console.error('Failed to load restaurants:', err);
     }
   }
 
-  // ─── Rendering ──────────────────────────────────────────────────────────────
+  // ✅ NEW: apply client-side filtering (for PRICE mainly)
+  _renderFilteredMarkers() {
+    this._markerLayer.clearLayers();
+    this._loadedIds.clear();
 
-  /** Shared red pin Leaflet icon */
+    let data = [...this._currentData];
+
+    // Example placeholder price filter logic
+    if (this._filters.PRICE !== 'Any Price') {
+      // ⚠️ dataset has no price → simulate or skip
+      // currently does nothing meaningful but keeps structure ready
+    }
+
+    this._addNewMarkers(data);
+  }
+
   _redIcon() {
     return L.divIcon({
       className: 'fy-red-pin',

@@ -21,7 +21,6 @@ export class ForkYeahNavbar extends LitElement {
       PRICE:   'Any Price',
     };
 
-    // Close dropdown when clicking outside the component
     this._onOutsideClick = (e) => {
       if (!this.renderRoot.contains(e.target)) {
         this._openDropdown = null;
@@ -44,11 +43,9 @@ export class ForkYeahNavbar extends LitElement {
   }
 
   _selectOption(filterName, option) {
-    // Immutable update so Lit picks up the change
     this._selected = { ...this._selected, [filterName]: option };
     this._openDropdown = null;
 
-    // Broadcast the new filter state to any listeners (e.g. forkyeah-map)
     document.dispatchEvent(new CustomEvent('forkyeah-filter', {
       detail: { ...this._selected },
     }));
@@ -71,7 +68,6 @@ export class ForkYeahNavbar extends LitElement {
         font-family: 'Barlow Condensed', sans-serif;
       }
 
-      /* ── Nav bar ── */
       nav {
         display: flex;
         align-items: stretch;
@@ -106,7 +102,6 @@ export class ForkYeahNavbar extends LitElement {
         border-left: 1px solid #ff0000;
       }
 
-      /* ── Filter buttons ── */
       .filters {
         display: flex;
         flex: 1;
@@ -132,7 +127,6 @@ export class ForkYeahNavbar extends LitElement {
         display: none;
       }
 
-      /* ── Button base ── */
       .filter-btn {
         flex: 1;
         display: flex;
@@ -160,12 +154,10 @@ export class ForkYeahNavbar extends LitElement {
         transition: color 0.2s ease;
       }
 
-      /* Active filter — button has a subtle red background tint */
       .filter-btn.active-filter {
         background: #fff5f5;
       }
 
-      /* ── Hover layer ── */
       .filter-btn::before {
         content: "";
         position: absolute;
@@ -185,7 +177,6 @@ export class ForkYeahNavbar extends LitElement {
         opacity: 1;
       }
 
-      /* keep text above */
       .filter-btn * {
         position: relative;
         z-index: 1;
@@ -206,7 +197,6 @@ export class ForkYeahNavbar extends LitElement {
         transition: color 0.2s ease;
       }
 
-      /* Currently selected value shown below the filter name */
       .filter-val {
         font-size: 10px;
         font-weight: 700;
@@ -222,7 +212,17 @@ export class ForkYeahNavbar extends LitElement {
         color: #fff;
       }
 
-      /* ── Dropdown panel ── */
+      /* ✅ NEW: label styling */
+      .filter-label {
+        position: relative;
+        z-index: 1;
+        transition: color 0.2s ease;
+      }
+
+      .filter-btn:hover .filter-label {
+        color: #ffffff;
+      }
+
       .dropdown {
         display: none;
         position: absolute;
@@ -263,13 +263,11 @@ export class ForkYeahNavbar extends LitElement {
         color: #fff;
       }
 
-      /* ── Mobile responsive ── */
       @media (max-width: 600px) {
         nav {
           border-bottom-width: 5px;
         }
 
-        /* Hide the right brand on small screens to save space */
         .brand-right {
           display: none;
         }
@@ -297,7 +295,6 @@ export class ForkYeahNavbar extends LitElement {
     `;
   }
 
-  // Dropdown options per filter
   _options() {
     return {
       COUNTRY: ['All Countries', 'American', 'Chinese', 'Italian', 'Japanese', 'Mexican', 'Indian', 'Thai'],
@@ -311,11 +308,9 @@ export class ForkYeahNavbar extends LitElement {
 
     return html`
       <nav>
-        <!-- Left brand -->
         <div class="brand">FORK<br>YEAH!</div>
         <div class="vsep"></div>
 
-        <!-- Filter dropdowns -->
         <div class="filters">
           ${['COUNTRY', 'BOROUGH', 'PRICE'].map(name => html`
             <div class="filter-wrap">
@@ -323,7 +318,7 @@ export class ForkYeahNavbar extends LitElement {
                 class="filter-btn ${!this._isDefault(name) ? 'active-filter' : ''}"
                 @click="${() => this._toggleDropdown(name)}"
               >
-                ${name}
+                <span class="filter-label">${name}</span>
                 ${!this._isDefault(name) ? html`
                   <span class="filter-val">${this._selected[name]}</span>
                 ` : ''}
@@ -343,7 +338,6 @@ export class ForkYeahNavbar extends LitElement {
 
         <div class="vsep"></div>
 
-        <!-- Right brand (hidden on mobile) -->
         <div class="brand brand-right" style="text-align:right">FORK<br>YEAH!</div>
       </nav>
     `;
