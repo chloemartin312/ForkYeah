@@ -1,599 +1,727 @@
 /* ─────────────────────────────────────────────
-   FORKYEAH — Global Stylesheet
-   Font: Barlow Condensed (loaded in HTML head)
-   Primary: #E8192C  |  BG: #EFEFEF
+  FORKYEAH — Global Stylesheet
+  Font: Barlow Condensed (loaded in HTML head)
+  Primary: #E8192C  |  BG: #EFEFEF
 ───────────────────────────────────────────── */
 
+
 *, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
 }
+
 
 :root {
-  --red:  #ff0019;
-  --gray: #ffffff;
-  --font: 'Barlow Condensed', sans-serif;
-  --card-width: 760px;       /* layout max — intentionally px */
-  --border-thick: 0.625rem;  /* 10px → scales with root font */
-  --border-mid:   0.5rem;    /* 8px  */
-  --border-thin:  0.25rem;   /* 4px  */
+ --red:  #ff0019;
+ --gray: #ffffff;
+ --font: 'Barlow Condensed', sans-serif;
+ --card-width: 760px;       /* layout max — intentionally px */
+ --border-thick: 0.625rem;  /* 10px → scales with root font */
+ --border-mid:   0.5rem;    /* 8px  */
+ --border-thin:  0.25rem;   /* 4px  */
 }
+
 
 html, body {
-  font-family: var(--font);
-  background: #EFEFEF;
-  min-height: 100vh;
+ font-family: var(--font);
+ background: #EFEFEF;
+ min-height: 100vh;
 }
 
+
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2.5rem 1.25rem 3.75rem;  /* 40px 20px 60px */
-  gap: 2.25rem;                      /* 36px */
-  position: relative;
-  overflow-x: hidden;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ padding: 2.5rem 1.25rem 3.75rem;  /* 40px 20px 60px */
+ gap: 2.25rem;                      /* 36px */
+ position: relative;
+ overflow-x: hidden;
 }
+
 
 /* ─── Background wallpaper ────────────────── */
 #bg {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 0;
+ overflow: hidden;
 }
 
+
 .bw {
-  position: absolute;
-  font-family: var(--font);
-  font-weight: 900;
-  color: var(--gray);
-  text-transform: uppercase;
-  white-space: nowrap;
-  line-height: 1;
-  user-select: none;
+ position: absolute;
+ font-family: var(--font);
+ font-weight: 900;
+ color: var(--gray);
+ text-transform: uppercase;
+ white-space: nowrap;
+ line-height: 1;
+ user-select: none;
 }
+
 
 /* ─── Page card ───────────────────────────── */
 .page-card {
-  position: relative;
-  z-index: 1;
-  background: #fff;
-  border: var(--border-thick) solid var(--red);
-  width: var(--card-width);
-  max-width: 100%;
+ position: relative;
+ z-index: 1;
+ background: #fff;
+ border: var(--border-thick) solid var(--red);
+ width: var(--card-width);
+ max-width: 100%;
 }
+
 
 /* ─── Content padding ─────────────────────── */
 .content {
-  padding: 1.375rem 1.625rem 1.875rem;  /* 22px 26px 30px */
+ padding: 1.375rem 1.625rem 1.875rem;  /* 22px 26px 30px */
 }
+
 
 /* ─── Header row ──────────────────────────── */
 .header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.75rem;  /* 12px */
+ display: flex;
+ justify-content: space-between;
+ align-items: flex-start;
+ margin-bottom: 0.75rem;  /* 12px */
 }
+
 
 .title-block {
-  display: inline-block;
-  background: var(--red);
-  padding: 0.3125em 0.8125em;  /* em: scales with h1 font size */
+ display: inline-block;
+ background: var(--red);
+ padding: 0.3125em 0.8125em;  /* em: scales with h1 font size */
 }
+
 
 .title-block h1 {
-  font-weight: 600;
-  font-size: 3rem;           /* 48px */
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  line-height: 1;
+ font-weight: 600;
+ font-size: 3rem;           /* 48px */
+ color: #fff;
+ text-transform: uppercase;
+ letter-spacing: 0.06em;
+ line-height: 1;
 }
+
 
 .sub-block {
-  display: inline-block;
-  background: var(--red);
-  padding: 0.3125em 0.8125em;
+ display: inline-block;
+ background: var(--red);
+ padding: 0.3125em 0.8125em;
 }
+
 
 .sub-block p {
-  font-weight: 600;
-  font-size: 3rem;           /* 48px */
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  line-height: 1;
+ font-weight: 600;
+ font-size: 3rem;           /* 48px */
+ color: #fff;
+ text-transform: uppercase;
+ letter-spacing: 0.08em;
+ line-height: 1;
 }
+
 
 .loc-badge {
-  display: inline-block;
-  color: white;
-  font-weight: 600;
-  background-color: #ff0019;
-  font-size: 1.5rem;         /* 24px */
-  letter-spacing: 0.13em;
-  padding: 0.3125em 0.8125em;
-  text-transform: uppercase;
-  margin-top: 0.25rem;       /* 4px */
+ display: inline-block;
+ color: white;
+ font-weight: 600;
+ background-color: #ff0019;
+ font-size: 1.5rem;         /* 24px */
+ letter-spacing: 0.13em;
+ padding: 0.3125em 0.8125em;
+ text-transform: uppercase;
+ margin-top: 0.25rem;       /* 4px */
 }
+
 
 .page-num {
-  text-align: center;
-  color: var(--red);
-  font-weight: 600;
-  line-height: 1;
-  padding-top: 0.5rem;       /* 8px */
-  flex-shrink: 0;
+ text-align: center;
+ color: var(--red);
+ font-weight: 600;
+ line-height: 1;
+ padding-top: 0.5rem;       /* 8px */
+ flex-shrink: 0;
 }
+
 
 .page-num .n {
-  display: block;
-  font-size: 5.75rem;        /* 92px */
-  letter-spacing: -0.03em;
-  line-height: 0.88;
+ display: block;
+ font-size: 5.75rem;        /* 92px */
+ letter-spacing: -0.03em;
+ line-height: 0.88;
 }
 
+
 .page-num .p {
-  display: block;
-  font-size: 1.25rem;        /* 20px */
-  letter-spacing: 0.35em;
-  font-weight: 800;
-  margin-top: 0.1875rem;     /* 3px */
+ display: block;
+ font-size: 1.25rem;        /* 20px */
+ letter-spacing: 0.35em;
+ font-weight: 800;
+ margin-top: 0.1875rem;     /* 3px */
 }
+
 
 /* ─── Dashed divider ──────────────────────── */
 .divider {
-  display: flex;
-  align-items: center;
-  margin: 0.75rem 0;         /* 12px */
+ display: flex;
+ align-items: center;
+ margin: 0.75rem 0;         /* 12px */
 }
+
 
 .dash {
-  flex: 1;
-  border-top: var(--border-thick) dashed var(--red);
+ flex: 1;
+ border-top: var(--border-thick) dashed var(--red);
 }
 
+
 .fork-dot {
-  width: 2rem;               /* 32px */
-  height: 2rem;
-  background: var(--red);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 0.875rem;       /* 14px */
-  flex-shrink: 0;
+ width: 2rem;               /* 32px */
+ height: 2rem;
+ background: var(--red);
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ color: #fff;
+ font-size: 0.875rem;       /* 14px */
+ flex-shrink: 0;
 }
+
 
 /* ─── Page 01: Map wrappers ───────────────── */
 .map-wrapper {
-  border: var(--border-thick) solid var(--red);
-  overflow: hidden;
-  margin-bottom: 1rem;       /* 16px */
-  height: 20rem;             /* 320px */
+ border: var(--border-thick) solid var(--red);
+ overflow: hidden;
+ margin-bottom: 1rem;       /* 16px */
+ height: 20rem;             /* 320px */
 }
+
 
 forkyeah-map {
-  --map-width: 100%;
-  --map-height: 100%;
-  display: block;
-  width: 100%;
-  height: 100%;
+ --map-width: 100%;
+ --map-height: 100%;
+ display: block;
+ width: 100%;
+ height: 100%;
 }
+
 
 .map-placeholder {
-  border: var(--border-thick) solid var(--red);
-  height: 15rem;             /* 240px */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+ border: var(--border-thick) solid var(--red);
+ height: 15rem;             /* 240px */
+ display: flex;
+ align-items: center;
+ justify-content: center;
 }
 
+
 .map-placeholder span {
-  font-family: var(--font);
-  font-weight: 900;
-  font-size: 2.625rem;       /* 42px */
-  color: var(--red);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+ font-family: var(--font);
+ font-weight: 900;
+ font-size: 2.625rem;       /* 42px */
+ color: var(--red);
+ text-transform: uppercase;
+ letter-spacing: 0.08em;
 }
+
 
 /* ─── Page 02: Restaurant rows ────────────── */
 .restaurants {
-  display: flex;
-  flex-direction: column;
-  gap: 0.875rem;             /* 14px */
+ display: flex;
+ flex-direction: column;
+ gap: 0.875rem;             /* 14px */
 }
+
 
 .r-row {
-  position: relative;
-  height: 12.5rem;           /* 200px */
+ position: relative;
+ height: 12.5rem;           /* 200px */
 }
+
 
 .r-photo {
-  position: absolute;
-  border: 3px solid var(--red);
-  overflow: hidden;
-  width: 13.125rem;          /* 210px */
-  height: 12.5rem;           /* 200px */
+ position: absolute;
+ border: 3px solid var(--red);
+ overflow: hidden;
+ width: 13.125rem;          /* 210px */
+ height: 12.5rem;           /* 200px */
 }
+
 
 .r-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.4s ease;
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ display: block;
+ transition: transform 0.4s ease;
 }
 
+
 .r-photo:hover img {
-  transform: scale(1.04);
+ transform: scale(1.04);
 }
+
 
 /* Photo on right, label on left */
 .row-right .r-photo { right: 0; top: 0; }
 .row-right .r-label { left: 3.75rem; top: 50%; transform: translateY(-50%); }
 
+
 /* Photo on left, label on right */
 .row-left .r-photo  { left: 0; top: 4px; }
 .row-left .r-label  { right: 1.25rem; top: 50%; transform: translateY(-50%); }
 
+
 .r-label {
-  position: absolute;
-  border: 2px solid var(--red);
-  background: #fff;
-  color: var(--red);
-  font-weight: 600;
-  font-size: 1.5rem;         /* 24px */
-  letter-spacing: 0.13em;
-  padding: 0.3125em 0.8125em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-  z-index: 2;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+ position: absolute;
+ border: 2px solid var(--red);
+ background: #fff;
+ color: var(--red);
+ font-weight: 600;
+ font-size: 1.5rem;         /* 24px */
+ letter-spacing: 0.13em;
+ padding: 0.3125em 0.8125em;
+ text-transform: uppercase;
+ white-space: nowrap;
+ display: flex;
+ align-items: center;
+ gap: 0.5em;
+ z-index: 2;
+ cursor: pointer;
+ transition: background 0.15s, color 0.15s;
 }
+
 
 .r-label:hover {
-  background: var(--red);
-  color: #fff;
+ background: var(--red);
+ color: #fff;
 }
 
+
 .r-arr {
-  font-size: 0.5625em;       /* ~9px relative to label's 1.5rem */
+ font-size: 0.5625em;       /* ~9px relative to label's 1.5rem */
 }
+
 
 /* Connector lines — injected by JS */
 .r-line {
-  position: absolute;
-  height: 2px;
-  background: var(--red);
-  z-index: 1;
+ position: absolute;
+ height: 2px;
+ background: var(--red);
+ z-index: 1;
 }
 
+
 .r-dot {
-  position: absolute;
-  width: 0.5rem;             /* 8px */
-  height: 0.5rem;
-  background: var(--red);
-  border-radius: 50%;
-  z-index: 3;
-  transform: translate(-50%, -50%);
+ position: absolute;
+ width: 0.5rem;             /* 8px */
+ height: 0.5rem;
+ background: var(--red);
+ border-radius: 50%;
+ z-index: 3;
+ transform: translate(-50%, -50%);
 }
+
 
 /* ─── Page 03: Globe section ──────────────── */
 .globe-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.25rem;              /* 20px */
-  padding: 1rem 0;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 1.25rem;              /* 20px */
+ padding: 1rem 0;
 }
+
 
 .globe-col-labels {
-  display: flex;
-  flex-direction: column;
-  gap: 1.625rem;             /* 26px */
-  align-items: flex-end;
+ display: flex;
+ flex-direction: column;
+ gap: 1.625rem;             /* 26px */
+ align-items: flex-end;
 }
+
 
 .globe-col-right {
-  align-items: flex-start;
+ align-items: flex-start;
 }
+
+
+/* Replace your current .g-label section with this */
+
+
+.g-info-box {
+ position: relative;
+ width: 100%;
+}
+
 
 .g-label {
-  border: var(--border-thin) solid var(--red);
-  background: #fff;
-  color: var(--red);
-  font-weight: 600;
-  font-size: 1.5rem;         /* 24px */
-  letter-spacing: 0.12em;
-  padding: 0.3125em 0.8125em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+ border: var(--border-thin) solid var(--red);
+ background: #fff;
+ color: var(--red);
+ font-weight: 600;
+ font-size: 1.5rem;
+ letter-spacing: 0.12em;
+ padding: 0.3125em 0.8125em;
+ text-transform: uppercase;
+ white-space: nowrap;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 0.5em;
+ cursor: pointer;
+ transition: background 0.25s ease, color 0.25s ease;
+ width: 100%;
+ font-family: var(--font);
 }
 
-.g-label:hover {
-  background: var(--red);
-  color: #fff;
+
+.g-label:hover,
+.g-label.active {
+ background: var(--red);
+ color: #fff;
 }
+
+
+.g-dropdown {
+ max-height: 0;
+ overflow: hidden;
+ opacity: 0;
+ transform: translateY(-8px);
+ transition:
+   max-height 0.35s ease,
+   opacity 0.3s ease,
+   transform 0.3s ease,
+   padding 0.3s ease;
+ background: #fff;
+ border: 2px solid var(--red);
+ border-top: none;
+ color: var(--red);
+ font-size: 1rem;
+ font-weight: 600;
+ letter-spacing: 0.04em;
+ line-height: 1.4;
+ padding: 0 0.875rem;
+ width: 100%;
+}
+
+
+.g-dropdown.open {
+ max-height: 220px;
+ opacity: 1;
+ transform: translateY(0);
+ padding: 0.875rem;
+ margin-top: -2px;
+}
+
 
 /* ─── Page 03: Restaurant cards ───────────── */
 .restaurant-cards {
-  display: flex;
-  gap: 0.75rem;              /* 12px */
+ display: flex;
+ gap: 0.75rem;              /* 12px */
 }
+
 
 .rest-card {
-  flex: 1;
-  border: var(--border-mid) solid var(--red);
-  overflow: hidden;
-  background: #ffffff;
+ flex: 1;
+ border: var(--border-mid) solid var(--red);
+ overflow: hidden;
+ background: #ffffff;
 }
+
 
 .rest-card-photo {
-  width: 100%;
-  height: 12.5rem;           /* 200px */
-  overflow: hidden;
+ width: 100%;
+ height: 12.5rem;           /* 200px */
+ overflow: hidden;
 }
+
 
 .rest-card-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.4s ease;
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ display: block;
+ transition: transform 0.4s ease;
 }
 
+
 .rest-card:hover .rest-card-photo img {
-  transform: scale(1.04);
+ transform: scale(1.04);
 }
+
 
 /* ── Actions row ── */
 .rest-card-actions {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;               /* 24px */
-  padding: 0.5em 0.625em 0;
+ display: flex;
+ justify-content: center;
+ gap: 1.5rem;               /* 24px */
+ padding: 0.5em 0.625em 0;
 }
+
 
 .pill-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-  border: var(--border-thin) solid var(--red);
-  background: transparent;
-  color: var(--red);
-  font-family: var(--font);
-  font-weight: 600;
-  font-size: 1.125rem;       /* 18px */
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 0.556em 2em;      /* em: scales with font-size */
-  border-radius: 2.5em;
-  cursor: pointer;
-  transition: all 0.5s ease;
+ display: flex;
+ align-items: center;
+ gap: 0.5em;
+ border: var(--border-thin) solid var(--red);
+ background: transparent;
+ color: var(--red);
+ font-family: var(--font);
+ font-weight: 600;
+ font-size: 1.125rem;       /* 18px */
+ letter-spacing: 0.12em;
+ text-transform: uppercase;
+ padding: 0.556em 2em;      /* em: scales with font-size */
+ border-radius: 2.5em;
+ cursor: pointer;
+ transition: all 0.5s ease;
 }
+
 
 .pill-btn:hover {
-  background: var(--red);
-  color: #fff;
+ background: var(--red);
+ color: #fff;
 }
+
 
 .pill-dot {
-  width: 0.875rem;           /* 14px */
-  height: 0.875rem;
-  background: var(--red);
-  border-radius: 50%;
+ width: 0.875rem;           /* 14px */
+ height: 0.875rem;
+ background: var(--red);
+ border-radius: 50%;
 }
+
 
 .rest-card-name {
-  display: block;
-  margin: 0.75rem auto;
-  font-weight: 600;
-  font-size: 1.5rem;         /* 24px */
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #fff;
-  background: var(--red);
-  padding: 0.667em 1em;      /* em: scales with font-size */
-  border-radius: 2.5em;
-  text-align: center;
+ display: block;
+ margin: 0.75rem auto;
+ font-weight: 600;
+ font-size: 1.5rem;         /* 24px */
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: #fff;
+ background: var(--red);
+ padding: 0.667em 1em;      /* em: scales with font-size */
+ border-radius: 2.5em;
+ text-align: center;
 }
 
+
 .rest-card-addr {
-  text-align: center;
-  font-weight: 700;
-  font-size: 1.125rem;       /* 18px */
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--red);
-  padding: 0.25em 0 0.75em;
+ text-align: center;
+ font-weight: 700;
+ font-size: 1.125rem;       /* 18px */
+ letter-spacing: 0.12em;
+ text-transform: uppercase;
+ color: var(--red);
+ padding: 0.25em 0 0.75em;
 }
+
 
 /* ─── View More button ────────────────────── */
 .view-more-btn {
-  margin-top: 1rem;
-  border: var(--border-mid) solid var(--red);
-  color: var(--red);
-  font-family: var(--font);
-  font-weight: 600;
-  font-size: 1.5rem;         /* 24px */
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 0.417em 0.667em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+ margin-top: 1rem;
+ border: var(--border-mid) solid var(--red);
+ color: var(--red);
+ font-family: var(--font);
+ font-weight: 600;
+ font-size: 1.5rem;         /* 24px */
+ letter-spacing: 0.14em;
+ text-transform: uppercase;
+ text-align: center;
+ padding: 0.417em 0.667em;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 1rem;
+ cursor: pointer;
+ transition: background 0.15s, color 0.15s;
 }
 
+
 .view-more-btn:hover {
-  background: var(--red);
-  color: #fff;
+ background: var(--red);
+ color: #fff;
 }
+
+
 
 
 /* ═══════════════════════════════════════════
-   MOBILE RESPONSIVE — max-width: 600px
-   (and intermediate tablet at 760px)
+  MOBILE RESPONSIVE — max-width: 600px
+  (and intermediate tablet at 760px)
 ═══════════════════════════════════════════ */
+
 
 /* ─── Tablet: card fills screen ───────────── */
 @media (max-width: 800px) {
-  body {
-    padding: 1rem 0.625rem 2.5rem;
-    gap: 1.25rem;
-  }
+ body {
+   padding: 1rem 0.625rem 2.5rem;
+   gap: 1.25rem;
+ }
 
-  .page-card {
-    border-width: 0.375rem;  /* 6px */
-  }
 
-  .content {
-    padding: 1rem 1rem 1.375rem;
-  }
+ .page-card {
+   border-width: 0.375rem;  /* 6px */
+ }
+
+
+ .content {
+   padding: 1rem 1rem 1.375rem;
+ }
 }
+
 
 /* ─── Mobile: full layout overhaul ────────── */
 @media (max-width: 600px) {
 
-  /* ── Page card ── */
-  .page-card {
-    border-width: 0.3125rem; /* 5px */
-  }
 
-  .content {
-    padding: 0.75rem 0.75rem 1.125rem;
-  }
+ /* ── Page card ── */
+ .page-card {
+   border-width: 0.3125rem; /* 5px */
+ }
 
-  /* ── Header ── */
-  .title-block h1 {
-    font-size: 1.75rem;      /* 28px */
-    letter-spacing: 0.04em;
-  }
 
-  .sub-block p {
-    font-size: 1.25rem;      /* 20px */
-    letter-spacing: 0.04em;
-  }
+ .content {
+   padding: 0.75rem 0.75rem 1.125rem;
+ }
 
-  .loc-badge {
-    font-size: 1rem;         /* 16px */
-    letter-spacing: 0.08em;
-  }
 
-  .page-num .n {
-    font-size: 3.25rem;      /* 52px */
-  }
+ /* ── Header ── */
+ .title-block h1 {
+   font-size: 1.75rem;      /* 28px */
+   letter-spacing: 0.04em;
+ }
 
-  .page-num .p {
-    font-size: 0.8125rem;    /* 13px */
-    letter-spacing: 0.2em;
-  }
 
-  /* ── Divider ── */
-  .dash {
-    border-top-width: 0.375rem; /* 6px */
-  }
+ .sub-block p {
+   font-size: 1.25rem;      /* 20px */
+   letter-spacing: 0.04em;
+ }
 
-  /* ── Page 01: Maps ── */
-  .map-wrapper {
-    height: 13.75rem;        /* 220px */
-    border-width: 0.3125rem;
-    margin-bottom: 0.75rem;
-  }
 
-  .map-placeholder {
-    height: 8.75rem;         /* 140px */
-    border-width: 0.3125rem;
-  }
+ .loc-badge {
+   font-size: 1rem;         /* 16px */
+   letter-spacing: 0.08em;
+ }
 
-  .map-placeholder span {
-    font-size: 1.5rem;       /* 24px */
-  }
 
-  /* ── Page 02: Restaurant rows ── */
-  .r-row {
-    height: 8.125rem;        /* 130px */
-  }
+ .page-num .n {
+   font-size: 3.25rem;      /* 52px */
+ }
 
-  .r-photo {
-    width: 8.125rem;
-    height: 8.125rem;
-  }
 
-  .row-right .r-label {
-    left: 0.5rem;
-    font-size: 0.9375rem;    /* 15px */
-    letter-spacing: 0.06em;
-    padding: 0.267em 0.533em;
-  }
+ .page-num .p {
+   font-size: 0.8125rem;    /* 13px */
+   letter-spacing: 0.2em;
+ }
 
-  .row-left .r-label {
-    right: 0.5rem;
-    font-size: 0.9375rem;
-    letter-spacing: 0.06em;
-    padding: 0.267em 0.533em;
-  }
 
-  /* ── Page 03: Globe section ── */
-  .globe-section {
-    flex-direction: column;
-    gap: 0.75rem;
-    padding: 0.625rem 0;
-  }
+ /* ── Divider ── */
+ .dash {
+   border-top-width: 0.375rem; /* 6px */
+ }
 
-  .globe-col-labels {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
-    align-items: center;
-  }
 
-  .globe-col-right {
-    align-items: center;
-  }
+ /* ── Page 01: Maps ── */
+ .map-wrapper {
+   height: 13.75rem;        /* 220px */
+   border-width: 0.3125rem;
+   margin-bottom: 0.75rem;
+ }
 
-  .g-label {
-    font-size: 0.9375rem;    /* 15px */
-    letter-spacing: 0.07em;
-    padding: 0.267em 0.667em;
-    border-width: 3px;
-  }
 
-  /* ── Page 03: Restaurant cards — stack ── */
-  .restaurant-cards {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
+ .map-placeholder {
+   height: 8.75rem;         /* 140px */
+   border-width: 0.3125rem;
+ }
 
-  .rest-card-photo {
-    height: 10rem;           /* 160px */
-  }
 
-  /* ── View More ── */
-  .view-more-btn {
-    font-size: 0.875rem;     /* 14px */
-    letter-spacing: 0.1em;
-    padding: 0.643em 0.857em;
-    gap: 0.5rem;
-  }
+ .map-placeholder span {
+   font-size: 1.5rem;       /* 24px */
+ }
+
+
+ /* ── Page 02: Restaurant rows ── */
+ .r-row {
+   height: 8.125rem;        /* 130px */
+ }
+
+
+ .r-photo {
+   width: 8.125rem;
+   height: 8.125rem;
+ }
+
+
+ .row-right .r-label {
+   left: 0.5rem;
+   font-size: 0.9375rem;    /* 15px */
+   letter-spacing: 0.06em;
+   padding: 0.267em 0.533em;
+ }
+
+
+ .row-left .r-label {
+   right: 0.5rem;
+   font-size: 0.9375rem;
+   letter-spacing: 0.06em;
+   padding: 0.267em 0.533em;
+ }
+
+
+ /* ── Page 03: Globe section ── */
+ .globe-section {
+   flex-direction: column;
+   gap: 0.75rem;
+   padding: 0.625rem 0;
+ }
+
+
+ .globe-col-labels {
+   flex-direction: row;
+   flex-wrap: wrap;
+   justify-content: center;
+   gap: 0.5rem;
+   align-items: center;
+ }
+
+
+ .globe-col-right {
+   align-items: center;
+ }
+
+
+ .g-label {
+   font-size: 0.9375rem;    /* 15px */
+   letter-spacing: 0.07em;
+   padding: 0.267em 0.667em;
+   border-width: 3px;
+ }
+
+
+ /* ── Page 03: Restaurant cards — stack ── */
+ .restaurant-cards {
+   flex-direction: column;
+   gap: 0.75rem;
+ }
+
+
+ .rest-card-photo {
+   height: 10rem;           /* 160px */
+ }
+
+
+ /* ── View More ── */
+ .view-more-btn {
+   font-size: 0.875rem;     /* 14px */
+   letter-spacing: 0.1em;
+   padding: 0.643em 0.857em;
+   gap: 0.5rem;
+ }
 }
+
