@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ForkYeah — Uzbekistan Restaurants</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .back-nav {
+      position: relative;
+      z-index: 1;
+      width: var(--card-width);
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      background: var(--red);
+      color: #fff;
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: none;
+      padding: 0.5em 1.1em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .back-btn:hover {
+      background: #b5001a;
+    }
+
+    .exit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      background: transparent;
+      color: var(--red);
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: 3px solid var(--red);
+      padding: 0.5em 1.1em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .exit-btn:hover {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .six-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .six-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .six-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .count-label {
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      opacity: 0.55;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="bg"></div>
+
+  <div class="back-nav">
+    <a href="index.html" class="back-btn">← BACK</a>
+    <a href="index.html" class="exit-btn">✕ EXIT</a>
+  </div>
+
+  <section class="page-card">
+    <div class="content">
+
+      <div class="header-row">
+        <div class="header-left">
+          <div class="title-block"><h1>UZBEKISTAN</h1></div>
+          <div class="sub-block" style="margin-top:6px"><p>ALL NYC RESTAURANTS</p></div>
+          <div class="loc-badge">🌍 CENTRAL ASIAN CUISINE</div>
+        </div>
+        <div class="page-num">
+          <span class="n">UZ</span>
+          <span class="p">PAGE</span>
+        </div>
+      </div>
+
+      <div class="divider">
+        <div class="dash"></div>
+        <div class="fork-dot">🍴</div>
+        <div class="dash"></div>
+      </div>
+
+      <p class="count-label">6 RESTAURANTS SHOWN</p>
+
+      <div class="six-grid">
+
+        <!-- 1. Nargis Cafe -->
+        <div class="rest-card">
+          <div class="rest-card-photo">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="Nargis Cafe">
+          </div>
+          <div class="rest-card-actions">
+            <button class="pill-btn" type="button"><span class="pill-dot"></span> info</button>
+            <button class="pill-btn" type="button"><span class="pill-dot"></span> menu</button>
+          </div>
+          <div class="rest-card-name">NARGIS CAFE</div>
+          <div class="rest-card-addr">2818 CONEY ISLAND AVE, BROOKLYN</div>
+        </div>
+
+        <!-- 2. Uzbekistan Restaurant -->
+        <div class="rest-card">
+          <div class="rest-card-photo">
+            <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&q=80" alt="Uzbekistan Restaurant">
+          </div>
+          <div class="rest-card-actions">
+            <button class="pill-btn" type="button"><span class="pill-dot"></span> info</button>
+            <button class="pill-btn" type="button"><span class="pill-dot"></span> menu</button>
+          </div>
+          <div class="rest-card-name">UZBEKISTAN RESTAURANT</div>
+          <div class="rest-card-addr">2720 OCEAN AVE, BROOKLYN</div>
+        </div>
+
+        <!-- 3. Samarkand -->
+        <div class="rest-card">
+          <div class="rest-card-photo">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80" alt="Samarkand">
+          </div>
+          <div class="rest-card-actions">
+            <button class="pill-btn" type="button"><span class="pill-dot"></span> info</button>
+            <button class="pill-btn" type="button"><span class="pill-dot"></span> menu</button>
+          </div>
+          <div class="rest-card-name">SAMARKAND</div>
+          <div class="rest-card-addr">1117 BRIGHTON BEACH AVE, BROOKLYN</div>
+        </div>
+
+        <!-- 4. Bukhara Grill -->
+        <div class="rest-card">
+          <div class="rest-card-photo">
+            <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80" alt="Bukhara Grill">
+          </div>
+          <div class="rest-card-actions">
+            <button class="pill-btn" type="button"><span class="pill-dot"></span> info</button>
+            <button class="pill-btn" type="button"><span class="pill-dot"></span> menu</button>
+          </div>
+          <div class="rest-card-name">BUKHARA GRILL</div>
+          <div class="rest-card-addr">217 E 49TH ST, MANHATTAN</div>
+        </div>
+
+        <!-- 5. Tashkent Plov Center -->
+        <div class="rest-card">
+          <div class="rest-card-photo">
+            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80" alt="Tashkent Plov Center">
+          </div>
+          <div class="rest-card-actions">
+            <button class="pill-btn" type="button"><span class="pill-dot"></span> info</button>
+            <button class="pill-btn" type="button"><span class="pill-dot"></span> menu</button>
+          </div>
+          <div class="rest-card-name">TASHKENT PLOV CENTER</div>
+          <div class="rest-card-addr">3006 OCEAN PKWY, BROOKLYN</div>
+        </div>
+
+        <!-- 6. Silk Road Kitchen -->
+        <div class="rest-card">
+          <div class="rest-card-photo">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80" alt="Silk Road Kitchen">
+          </div>
+          <div class="rest-card-actions">
+            <button class="pill-btn" type="button"><span class="pill-dot"></span> info</button>
+            <button class="pill-btn" type="button"><span class="pill-dot"></span> menu</button>
+          </div>
+          <div class="rest-card-name">SILK ROAD KITCHEN</div>
+          <div class="rest-card-addr">98-04 QUEENS BLVD, QUEENS</div>
+        </div>
+
+      </div>
+
+      <div class="divider" style="margin-top:1.5rem;">
+        <div class="dash"></div>
+        <div class="fork-dot">🍴</div>
+        <div class="dash"></div>
+      </div>
+
+      <div style="display:flex; gap:0.75rem; margin-top:1rem;">
+        <a href="index.html" class="back-btn" style="font-size:1.1rem;">← BACK TO FORKYEAH</a>
+        <a href="index.html" class="exit-btn" style="font-size:1.1rem;">✕ EXIT</a>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      const bg = document.getElementById('bg');
+      const vw = Math.max(window.innerWidth, 1200);
+      const words = [
+        { t: 'UZBEKISTAN', s: 90, w: 900 },
+        { t: 'PLOV', s: 110, w: 900 },
+        { t: 'SHASHLIK', s: 70, w: 900 },
+        { t: 'SAMSA', s: 80, w: 900 },
+        { t: 'FORK YEAH!', s: 54, w: 900 },
+        { t: 'LAGMAN', s: 75, w: 900 },
+        { t: 'NON', s: 100, w: 900 },
+        { t: 'TASHKENT', s: 60, w: 800 },
+        { t: 'SAMARKAND', s: 56, w: 800 },
+        { t: 'TASTE THE WORLD', s: 34, w: 800 },
+      ];
+      const COLS = 6, ROWS = 18;
+      const cw = vw / COLS, ch = 220;
+      let idx = 0;
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          if (Math.random() < 0.1) continue;
+          const item = words[idx++ % words.length];
+          const el = document.createElement('div');
+          el.className = 'bw';
+          el.textContent = item.t;
+          el.style.fontSize = item.s + 'px';
+          el.style.fontWeight = item.w;
+          const jx = (Math.random() - 0.5) * cw * 0.18;
+          const jy = (Math.random() - 0.5) * ch * 0.18;
+          el.style.left = (c * cw + jx) + 'px';
+          el.style.top = (r * ch + jy) + 'px';
+          const rots = [0, 0, 0, 90, -90, 180];
+          const rot = rots[Math.floor(Math.random() * rots.length)];
+          if (rot) el.style.transform = `rotate(${rot}deg)`;
+          bg.appendChild(el);
+        }
+      }
+    }());
+  </script>
+
+</body>
+</html>
