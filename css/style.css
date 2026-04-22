@@ -14,7 +14,7 @@
 
 :root {
  --red:  #ff0019;
- --gray: #ffffff;
+ --gray: #d8d8d8;
  --font: 'Barlow Condensed', sans-serif;
  --card-width: 875px;       /* layout max — intentionally px */
  --border-thick: 0.625rem;  /* 10px → scales with root font */
@@ -240,7 +240,7 @@ forkyeah-map {
    never pushes the rows below it downward */
 .r-row {
  position: relative;
- height: 16rem;             /* fixed — dropdowns float over content */
+ height: 12.5rem;           /* fixed — dropdowns float over content */
  overflow: visible;         /* let the absolute dropdown escape the row */
 }
 
@@ -249,8 +249,8 @@ forkyeah-map {
  position: absolute;
  border: 3px solid var(--red);
  overflow: hidden;
- width: 17rem;
- height: 16rem;
+ width: 13.125rem;
+ height: 12.5rem;
  z-index: 2;
 }
 
@@ -575,16 +575,16 @@ forkyeah-map {
 .pill-btn {
  display: flex;
  align-items: center;
- gap: 0.4em;
+ gap: 0.5em;
  border: var(--border-thin) solid var(--red);
  background: transparent;
  color: var(--red);
  font-family: var(--font);
  font-weight: 600;
- font-size: 0.875rem;
- letter-spacing: 0.1em;
+ font-size: 1.125rem;
+ letter-spacing: 0.12em;
  text-transform: uppercase;
- padding: 0.35em 1em;
+ padding: 0.556em 2em;
  border-radius: 2.5em;
  cursor: pointer;
  transition: all 0.5s ease;
@@ -598,8 +598,8 @@ forkyeah-map {
 
 
 .pill-dot {
- width: 0.5rem;
- height: 0.5rem;
+ width: 0.875rem;
+ height: 0.875rem;
  background: var(--red);
  border-radius: 50%;
 }
@@ -607,14 +607,14 @@ forkyeah-map {
 
 .rest-card-name {
  display: block;
- margin: 0.5rem auto;
+ margin: 0.75rem auto;
  font-weight: 600;
- font-size: 1.1rem;
- letter-spacing: 0.07em;
+ font-size: 1.5rem;
+ letter-spacing: 0.08em;
  text-transform: uppercase;
  color: #fff;
  background: var(--red);
- padding: 0.4em 0.75em;
+ padding: 0.667em 1em;
  border-radius: 2.5em;
  text-align: center;
 }
@@ -623,11 +623,11 @@ forkyeah-map {
 .rest-card-addr {
  text-align: center;
  font-weight: 700;
- font-size: 0.875rem;
- letter-spacing: 0.1em;
+ font-size: 1.125rem;
+ letter-spacing: 0.12em;
  text-transform: uppercase;
  color: var(--red);
- padding: 0.2em 0 0.6em;
+ padding: 0.25em 0 0.75em;
 }
 
 
@@ -732,12 +732,12 @@ forkyeah-map {
  }
 
  .r-row {
-   height: 10rem;
+   height: 8.125rem;
  }
 
  .r-photo {
-   width: 10rem;
-   height: 10rem;
+   width: 8.125rem;
+   height: 8.125rem;
  }
 
  .r-info-left {
