@@ -41,27 +41,6 @@ body {
 }
 
 
-/* ─── Background wallpaper ────────────────── */
-#bg {
- position: fixed;
- inset: 0;
- pointer-events: none;
- z-index: 0;
- overflow: hidden;
-}
-
-
-.bw {
- position: absolute;
- font-family: var(--font);
- font-weight: 900;
- color: var(--gray);
- text-transform: uppercase;
- white-space: nowrap;
- line-height: 1;
- user-select: none;
-}
-
 
 /* ─── Page card ───────────────────────────── */
 .page-card {
@@ -240,7 +219,7 @@ forkyeah-map {
    never pushes the rows below it downward */
 .r-row {
  position: relative;
- height: 12.5rem;           /* fixed — dropdowns float over content */
+ height: 17rem;             /* fixed — dropdowns float over content */
  overflow: visible;         /* let the absolute dropdown escape the row */
 }
 
@@ -249,8 +228,8 @@ forkyeah-map {
  position: absolute;
  border: 3px solid var(--red);
  overflow: hidden;
- width: 13.125rem;
- height: 12.5rem;
+ width: 17rem;
+ height: 17rem;
  z-index: 2;
 }
 
@@ -732,12 +711,12 @@ forkyeah-map {
  }
 
  .r-row {
-   height: 8.125rem;
+   height: 11rem;
  }
 
  .r-photo {
-   width: 8.125rem;
-   height: 8.125rem;
+   width: 11rem;
+   height: 11rem;
  }
 
  .r-info-left {

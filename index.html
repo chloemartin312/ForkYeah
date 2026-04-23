@@ -26,9 +26,6 @@
 
 <body>
 
- <!-- ── Tiled background wallpaper ── -->
- <div id="bg"></div>
-
  <!-- ══════════════════════════════════════════════
       PAGE 01 — EXPLORE NYC
  ══════════════════════════════════════════════ -->
@@ -269,63 +266,9 @@
    }
  </script>
 
- <!-- ── Background wallpaper ── -->
- <script>
-   (function () {
-     const bg = document.getElementById('bg');
-     const vw = Math.max(window.innerWidth, 1200);
-
-     const words = [
-       { t: 'FORK', s: 110, w: 900 },
-       { t: 'YEAH!', s: 90, w: 900 },
-       { t: "WHAT'S ON", s: 36, w: 700 },
-       { t: 'YOUR PLATE?', s: 36, w: 700 },
-       { t: 'PLATE', s: 68, w: 900 },
-       { t: 'TASTE THE', s: 38, w: 700 },
-       { t: 'WORLD', s: 58, w: 900 },
-       { t: 'FORK YEAH!', s: 54, w: 900 },
-       { t: "WHAT'S ON YOUR PLATE?", s: 30, w: 700 },
-       { t: 'TASTE THE WORLD', s: 34, w: 800 },
-       { t: '¡HⱯƏΛ', s: 90, w: 900 },
-       { t: 'THE WORLD', s: 44, w: 800 },
-       { t: 'YEA', s: 80, w: 900 },
-     ];
-
-     const COLS = 6, ROWS = 18;
-     const cw = vw / COLS;
-     const ch = 220;
-     let idx = 0;
-
-     for (let r = 0; r < ROWS; r++) {
-       for (let c = 0; c < COLS; c++) {
-         if (Math.random() < 0.1) continue;
-
-         const item = words[idx++ % words.length];
-         const el = document.createElement('div');
-         el.className = 'bw';
-         el.textContent = item.t;
-         el.style.fontSize = item.s + 'px';
-         el.style.fontWeight = item.w;
-
-         const jx = (Math.random() - 0.5) * cw * 0.18;
-         const jy = (Math.random() - 0.5) * ch * 0.18;
-         el.style.left = (c * cw + jx) + 'px';
-         el.style.top = (r * ch + jy) + 'px';
-
-         const rots = [0, 0, 0, 90, -90, 180];
-         const rot = rots[Math.floor(Math.random() * rots.length)];
-         if (rot) el.style.transform = `rotate(${rot}deg)`;
-
-         bg.appendChild(el);
-       }
-     }
-   }());
- </script>
-
  <!-- ── Connector lines for Page 02 restaurant rows ── -->
  <script>
    function drawConnector(rowEl, labelEl, photoEl, labelOnLeft) {
-     // Remove any previously drawn lines/dots in this row
      rowEl.querySelectorAll('.r-line, .r-dot').forEach(el => el.remove());
 
      const rr = rowEl.getBoundingClientRect();
@@ -379,7 +322,6 @@
      requestAnimationFrame(drawAllConnectors);
    });
 
-   // Redraw on resize so lines never go stale
    let _resizeTimer;
    window.addEventListener('resize', () => {
      clearTimeout(_resizeTimer);
@@ -396,23 +338,13 @@
      restaurantButtons.forEach((button) => {
        button.addEventListener('click', (e) => {
          e.stopPropagation();
-
          const parentBox = button.closest('.r-info-box');
          if (!parentBox) return;
-
          const dropdown = parentBox.querySelector('.r-dropdown');
          if (!dropdown) return;
-
          const isOpen = dropdown.classList.contains('open');
-
-         document.querySelectorAll('.r-dropdown').forEach((item) => {
-           item.classList.remove('open');
-         });
-
-         document.querySelectorAll('.r-label').forEach((item) => {
-           item.classList.remove('active');
-         });
-
+         document.querySelectorAll('.r-dropdown').forEach((item) => item.classList.remove('open'));
+         document.querySelectorAll('.r-label').forEach((item) => item.classList.remove('active'));
          if (!isOpen) {
            dropdown.classList.add('open');
            button.classList.add('active');
@@ -423,23 +355,13 @@
      countryInfoButtons.forEach((button) => {
        button.addEventListener('click', (e) => {
          e.stopPropagation();
-
          const parentBox = button.closest('.g-info-box');
          if (!parentBox) return;
-
          const dropdown = parentBox.querySelector('.g-dropdown');
          if (!dropdown) return;
-
          const isOpen = dropdown.classList.contains('open');
-
-         document.querySelectorAll('.g-dropdown').forEach((item) => {
-           item.classList.remove('open');
-         });
-
-         document.querySelectorAll('.g-label').forEach((item) => {
-           item.classList.remove('active');
-         });
-
+         document.querySelectorAll('.g-dropdown').forEach((item) => item.classList.remove('open'));
+         document.querySelectorAll('.g-label').forEach((item) => item.classList.remove('active'));
          if (!isOpen) {
            dropdown.classList.add('open');
            button.classList.add('active');
@@ -448,21 +370,10 @@
      });
 
      document.addEventListener('click', () => {
-       document.querySelectorAll('.r-dropdown').forEach((item) => {
-         item.classList.remove('open');
-       });
-
-       document.querySelectorAll('.r-label').forEach((item) => {
-         item.classList.remove('active');
-       });
-
-       document.querySelectorAll('.g-dropdown').forEach((item) => {
-         item.classList.remove('open');
-       });
-
-       document.querySelectorAll('.g-label').forEach((item) => {
-         item.classList.remove('active');
-       });
+       document.querySelectorAll('.r-dropdown').forEach((item) => item.classList.remove('open'));
+       document.querySelectorAll('.r-label').forEach((item) => item.classList.remove('active'));
+       document.querySelectorAll('.g-dropdown').forEach((item) => item.classList.remove('open'));
+       document.querySelectorAll('.g-label').forEach((item) => item.classList.remove('active'));
      });
    });
  </script>
