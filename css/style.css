@@ -11,21 +11,61 @@
  box-sizing: border-box;
 }
 
+body::before {
+  content: "FORKYEAH FORKYEAH FORKYEAH FORKYEAH FORKYEAH FORKYEAH FORKYEAH FORKYEAH FORKYEAH FORKYEAH FORKYEAH FORKYEAH FORKYEAH FORKYEAH FORKYEAH FORKYEAH";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
 
-:root {
- --red:  #ff0019;
- --gray: #d8d8d8;
- --font: 'Barlow Condensed', sans-serif;
- --card-width: 875px;       /* layout max — intentionally px */
- --border-thick: 0.625rem;  /* 10px → scales with root font */
- --border-mid:   0.5rem;    /* 8px  */
- --border-thin:  0.25rem;   /* 4px  */
+  font-family: var(--font);
+  font-weight: 900;
+  font-size: 8rem;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  word-break: break-all;
+  overflow: hidden;
+
+  color: var(--red);
+  opacity: 0.04;        
 }
 
+@media (prefers-color-scheme: dark) {
+  body::before {
+    opacity: 0.06;       
+  }
+}
+
+:root {
+  --red:#ff0019;
+  --bg-page:#efefef; 
+  --bg-card: #ffffff;
+  --text-on-red:#ffffff; 
+  --gray: #d8d8d8;
+  --font: 'Barlow Condensed', sans-serif;
+  --card-width: 875px;       /* layout max — intentionally px */
+  --border-thick: 0.625rem;  /* 10px → scales with root font */
+  --border-mid:   0.5rem;    /* 8px  */
+  --border-thin:  0.25rem;   /* 4px  */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --red:         #ff3347; 
+    --bg-page:     #1a1a1a;
+    --bg-card:     #242424;
+    --text-on-red: #ffffff;
+    --gray:        #3a3a3a;
+  }
+}
 
 html, body {
  font-family: var(--font);
- background: #EFEFEF;
+ background: var(--bg-page);
  min-height: 100vh;
 }
 
@@ -46,7 +86,7 @@ body {
 .page-card {
  position: relative;
  z-index: 1;
- background: #fff;
+ background: var(--bg-card);
  border: var(--border-thick) solid var(--red);
  width: var(--card-width);
  max-width: 100%;
@@ -78,7 +118,7 @@ body {
 .title-block h1 {
  font-weight: 600;
  font-size: 3rem;
- color: #fff;
+ color: var(--text-on-red);
  text-transform: uppercase;
  letter-spacing: 0.06em;
  line-height: 1;
@@ -95,7 +135,7 @@ body {
 .sub-block p {
  font-weight: 600;
  font-size: 3rem;
- color: #fff;
+ color: var(--text-on-red);
  text-transform: uppercase;
  letter-spacing: 0.08em;
  line-height: 1;
@@ -104,9 +144,9 @@ body {
 
 .loc-badge {
  display: inline-block;
- color: white;
+  color: var(--text-on-red);
  font-weight: 600;
- background-color: #ff0019;
+ background-color: var(--red);
  font-size: 1.5rem;
  letter-spacing: 0.13em;
  padding: 0.3125em 0.8125em;
@@ -164,8 +204,8 @@ body {
  display: flex;
  align-items: center;
  justify-content: center;
- color: #fff;
- font-size: 0.875rem;
+ color: var(--text-on-red);
+ font-size: 1.5rem;
  flex-shrink: 0;
 }
 
@@ -292,7 +332,7 @@ forkyeah-map {
 .r-label {
  position: relative;
  border: 2px solid var(--red);
- background: #fff;
+ background: var(--bg-card);
  color: var(--red);
  font-weight: 600;
  font-size: 1.5rem;
@@ -313,7 +353,7 @@ forkyeah-map {
 .r-label:hover,
 .r-label.active {
  background: var(--red);
- color: #fff;
+ color: var(--text-on-red);
 }
 
 
@@ -343,7 +383,7 @@ forkyeah-map {
    transform 0.3s ease,
    padding 0.3s ease;
 
- background: #fff;
+ background: var(--bg-card);
  border: 2px solid var(--red);
  color: var(--red);
  font-size: 0.95rem;
@@ -438,7 +478,7 @@ forkyeah-map {
 
 .g-label {
  border: var(--border-thin) solid var(--red);
- background: #fff;
+ background: var(--bg-card);
  color: var(--red);
  font-weight: 600;
  font-size: 1.5rem;
@@ -460,7 +500,7 @@ forkyeah-map {
 .g-label:hover,
 .g-label.active {
  background: var(--red);
- color: #fff;
+ color: var(--text-on-red);
 }
 
 
@@ -485,7 +525,7 @@ forkyeah-map {
    transform 0.3s ease,
    padding 0.3s ease;
 
- background: #fff;
+ background: var(--bg-card);
  border: 2px solid var(--red);
  border-top: none;
  color: var(--red);
@@ -517,7 +557,7 @@ forkyeah-map {
  flex: 1;
  border: var(--border-mid) solid var(--red);
  overflow: hidden;
- background: #ffffff;
+ background: var(--bg-card);
 }
 
 
@@ -572,7 +612,7 @@ forkyeah-map {
 
 .pill-btn:hover {
  background: var(--red);
- color: #fff;
+ color: var(--text-on-red);
 }
 
 
@@ -586,12 +626,12 @@ forkyeah-map {
 
 .rest-card-name {
  display: block;
- margin: 0.75rem auto;
+ margin: 0.75rem 1.5rem;
  font-weight: 600;
  font-size: 1.5rem;
  letter-spacing: 0.08em;
  text-transform: uppercase;
- color: #fff;
+ color: var(--text-on-red);
  background: var(--red);
  padding: 0.667em 1em;
  border-radius: 2.5em;
@@ -634,7 +674,7 @@ forkyeah-map {
 /* Hover state */
 .view-more-btn:hover {
   background: var(--red);
-  color: #fff;
+  color: var(--text-on-red);
 }
 
 
