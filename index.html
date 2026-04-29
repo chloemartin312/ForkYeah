@@ -88,8 +88,9 @@
        <!-- COMAL -->
        <div class="r-row row-right" id="r1">
          <div class="r-info-box r-info-left">
-           <button class="r-label" data-restaurant="comal" type="button">
-             COMAL <span class="r-arr">▶</span>
+           <button class="r-label" data-restaurant="comal" type="button"
+                   aria-expanded="false" aria-controls="comal-dropdown">
+             COMAL <span class="r-arr" aria-hidden="true">▶</span>
            </button>
            <div class="r-dropdown" id="comal-dropdown">
              <div class="r-dropdown-title">COMAL</div>
@@ -112,8 +113,9 @@
          </div>
 
          <div class="r-info-box r-info-right">
-           <button class="r-label" data-restaurant="cafeboulud" type="button">
-             <span class="r-arr">◀</span> CAFE BOULUD
+           <button class="r-label" data-restaurant="cafeboulud" type="button"
+                   aria-expanded="false" aria-controls="cafeboulud-dropdown">
+             <span class="r-arr" aria-hidden="true">◀</span> CAFE BOULUD
            </button>
            <div class="r-dropdown" id="cafeboulud-dropdown">
              <div class="r-dropdown-title">CAFE BOULUD</div>
@@ -128,8 +130,9 @@
        <!-- SUSHI NAKAZAWA -->
        <div class="r-row row-right" id="r3">
          <div class="r-info-box r-info-left">
-           <button class="r-label" data-restaurant="sushinakazawa" type="button">
-             SUSHI NAKAZAWA <span class="r-arr">▶</span>
+           <button class="r-label" data-restaurant="sushinakazawa" type="button"
+                   aria-expanded="false" aria-controls="sushinakazawa-dropdown">
+             SUSHI NAKAZAWA <span class="r-arr" aria-hidden="true">▶</span>
            </button>
            <div class="r-dropdown" id="sushinakazawa-dropdown">
              <div class="r-dropdown-title">SUSHI NAKAZAWA</div>
@@ -177,19 +180,21 @@
        <div class="globe-col-labels">
 
          <div class="g-info-box">
-           <button class="g-label" data-info="cuisine" type="button">
-             CUISINE <span class="r-arr">▶</span>
+           <button class="g-label" data-info="cuisine" type="button"
+                   aria-expanded="false" aria-controls="cuisine-dropdown">
+             CUISINE <span class="r-arr" aria-hidden="true">▶</span>
            </button>
-           <div class="g-dropdown" id="cuisine-dropdown">
+           <div class="g-dropdown" id="cuisine-dropdown" role="region" aria-label="Uzbekistan cuisine info">
              Uzbek cuisine is known for dishes like plov, lagman, shashlik, samsa, and fresh bread called non. Meals often include lamb, rice, vegetables, and rich spices.
            </div>
          </div>
 
          <div class="g-info-box">
-           <button class="g-label" data-info="population" type="button">
-             POPULATION <span class="r-arr">▶</span>
+           <button class="g-label" data-info="population" type="button"
+                   aria-expanded="false" aria-controls="population-dropdown">
+             POPULATION <span class="r-arr" aria-hidden="true">▶</span>
            </button>
-           <div class="g-dropdown" id="population-dropdown">
+           <div class="g-dropdown" id="population-dropdown" role="region" aria-label="Uzbekistan population info">
              Uzbekistan has a population of over 37 million people, making it one of the most populated countries in Central Asia.
            </div>
          </div>
@@ -197,25 +202,27 @@
        </div>
 
        <div class="globe">
-         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Uzbekistan_%28centered_orthographic_projection%29.svg/250px-Uzbekistan_%28centered_orthographic_projection%29.svg.png" alt="Uzbekistan on the globe">
+         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Uzbekistan_%28centered_orthographic_projection%29.svg/250px-Uzbekistan_%28centered_orthographic_projection%29.svg.png" alt="Map showing Uzbekistan's location on the globe">
        </div>
 
        <div class="globe-col-labels globe-col-right">
 
          <div class="g-info-box">
-           <button class="g-label" data-info="religions" type="button">
-             <span class="r-arr">◀</span> RELIGIONS
+           <button class="g-label" data-info="religions" type="button"
+                   aria-expanded="false" aria-controls="religions-dropdown">
+             <span class="r-arr" aria-hidden="true">◀</span> RELIGIONS
            </button>
-           <div class="g-dropdown" id="religions-dropdown">
+           <div class="g-dropdown" id="religions-dropdown" role="region" aria-label="Uzbekistan religions info">
              The majority religion in Uzbekistan is Islam, mainly Sunni Muslim. Smaller communities of Orthodox Christians, Jews, and other religions also live there.
            </div>
          </div>
 
          <div class="g-info-box">
-           <button class="g-label" data-info="languages" type="button">
-             <span class="r-arr">◀</span> LANGUAGES
+           <button class="g-label" data-info="languages" type="button"
+                   aria-expanded="false" aria-controls="languages-dropdown">
+             <span class="r-arr" aria-hidden="true">◀</span> LANGUAGES
            </button>
-           <div class="g-dropdown" id="languages-dropdown">
+           <div class="g-dropdown" id="languages-dropdown" role="region" aria-label="Uzbekistan languages info">
              Uzbek is the official language. Russian is also widely spoken, especially in cities, and some people speak Tajik and other regional languages.
            </div>
          </div>
@@ -227,11 +234,11 @@
 
        <div class="rest-card">
          <div class="rest-card-photo">
-           <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="Nargis Cafe">
+           <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="Food at Nargis Cafe, Brooklyn">
          </div>
          <div class="rest-card-actions">
-           <button class="pill-btn" type="button"><span class="pill-dot"></span> info</button>
-           <button class="pill-btn" type="button"><span class="pill-dot"></span> menu</button>
+           <button class="pill-btn" type="button" aria-label="Info about Nargis Cafe"><span class="pill-dot" aria-hidden="true"></span> info</button>
+           <a class="pill-btn" href="menu.html?r=nargis-cafe" aria-label="View Nargis Cafe menu"><span class="pill-dot" aria-hidden="true"></span> menu</a>
          </div>
          <div class="rest-card-name">NARGIS CAFE</div>
          <div class="rest-card-addr">2818 CONEY ISLAND AVE, BROOKLYN</div>
@@ -239,11 +246,11 @@
 
        <div class="rest-card">
          <div class="rest-card-photo">
-           <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&q=80" alt="Farida">
+           <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&q=80" alt="Food at Farida restaurant, Manhattan">
          </div>
          <div class="rest-card-actions">
-           <button class="pill-btn" type="button"><span class="pill-dot"></span> info</button>
-           <button class="pill-btn" type="button"><span class="pill-dot"></span> menu</button>
+           <button class="pill-btn" type="button" aria-label="Info about Farida"><span class="pill-dot" aria-hidden="true"></span> info</button>
+           <a class="pill-btn" href="menu.html?r=farida" aria-label="View Farida menu"><span class="pill-dot" aria-hidden="true"></span> menu</a>
          </div>
          <div class="rest-card-name">FARIDA</div>
          <div class="rest-card-addr">32 CEDAR ST, NEW YORK</div>
@@ -344,10 +351,11 @@
          if (!dropdown) return;
          const isOpen = dropdown.classList.contains('open');
          document.querySelectorAll('.r-dropdown').forEach((item) => item.classList.remove('open'));
-         document.querySelectorAll('.r-label').forEach((item) => item.classList.remove('active'));
+         document.querySelectorAll('.r-label').forEach((item) => { item.classList.remove('active'); item.setAttribute('aria-expanded', 'false'); });
          if (!isOpen) {
            dropdown.classList.add('open');
            button.classList.add('active');
+           button.setAttribute('aria-expanded', 'true');
          }
        });
      });
@@ -361,19 +369,20 @@
          if (!dropdown) return;
          const isOpen = dropdown.classList.contains('open');
          document.querySelectorAll('.g-dropdown').forEach((item) => item.classList.remove('open'));
-         document.querySelectorAll('.g-label').forEach((item) => item.classList.remove('active'));
+         document.querySelectorAll('.g-label').forEach((item) => { item.classList.remove('active'); item.setAttribute('aria-expanded', 'false'); });
          if (!isOpen) {
            dropdown.classList.add('open');
            button.classList.add('active');
+           button.setAttribute('aria-expanded', 'true');
          }
        });
      });
 
      document.addEventListener('click', () => {
        document.querySelectorAll('.r-dropdown').forEach((item) => item.classList.remove('open'));
-       document.querySelectorAll('.r-label').forEach((item) => item.classList.remove('active'));
+       document.querySelectorAll('.r-label').forEach((item) => { item.classList.remove('active'); item.setAttribute('aria-expanded', 'false'); });
        document.querySelectorAll('.g-dropdown').forEach((item) => item.classList.remove('open'));
-       document.querySelectorAll('.g-label').forEach((item) => item.classList.remove('active'));
+       document.querySelectorAll('.g-label').forEach((item) => { item.classList.remove('active'); item.setAttribute('aria-expanded', 'false'); });
      });
    });
  </script>

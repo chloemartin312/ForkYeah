@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ForkYeah — Menu</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* ── Menu page nav bar ── */
+    .menu-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.625rem;
+      border-bottom: var(--border-thick) solid var(--red);
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      background: transparent;
+      color: var(--red);
+      font-family: var(--font);
+      font-weight: 600;
+      font-size: 1.25rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: 0.1875rem solid var(--red);
+      padding: 0.5em 1.1em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .back-btn:hover,
+    .back-btn:focus-visible {
+      background: var(--red);
+      color: var(--text-on-red);
+      outline: none;
+    }
+
+    .nav-brand {
+      font-weight: 900;
+      font-size: 1.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--red);
+      line-height: 1;
+    }
+
+    /* ── visit website button ── */
+    .visit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      background: var(--red);
+      color: var(--text-on-red);
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 1.125rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: 0.1875rem solid var(--red);
+      padding: 0.5em 1.25em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+
+    .visit-btn:hover,
+    .visit-btn:focus-visible {
+      background: transparent;
+      color: var(--red);
+      outline: none;
+    }
+
+    /* ── header block ── */
+    .header-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.35rem;
+    }
+
+    /* ── not-found state ── */
+    .not-found {
+      text-align: center;
+      padding: 3rem 1rem;
+      font-weight: 700;
+      font-size: 2rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    /* ── price badge ── */
+    .price-badge {
+      display: inline-block;
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 1.125rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      border: 0.125rem dashed var(--red);
+      padding: 0.25em 0.75em;
+      margin-top: 0.5rem;
+    }
+
+    /* ── menu grid ── */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    /* ── menu section ── */
+    .menu-section {
+      border: var(--border-mid) solid var(--red);
+      overflow: hidden;
+    }
+
+    .menu-section-title {
+      background: var(--red);
+      color: var(--text-on-red);
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.5em 0.875em;
+    }
+
+    /* ── menu items ── */
+    .menu-items {
+      padding: 0.5rem 0;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.75rem;
+      padding: 0.625rem 0.875rem;
+      border-bottom: 1px dashed var(--gray);
+    }
+
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+
+    .menu-item-left {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .menu-item-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--red);
+      line-height: 1.2;
+    }
+
+    .menu-item-desc {
+      font-weight: 400;
+      font-size: 0.9rem;
+      letter-spacing: 0.03em;
+      color: var(--red);
+      opacity: 0.7;
+      margin-top: 0.15rem;
+      line-height: 1.35;
+    }
+
+    .menu-item-price {
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      color: var(--red);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── footer note ── */
+    .menu-note {
+      margin-top: 1.25rem;
+      padding: 0.875rem 1rem;
+      border: 0.125rem dashed var(--red);
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--red);
+      opacity: 0.75;
+      text-align: center;
+    }
+
+    /* ── full menu CTA ── */
+    .full-menu-cta {
+      margin-top: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 1.375rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      text-decoration: none;
+      padding: 0.625em 1em;
+      border: var(--border-thick) solid var(--red);
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .full-menu-cta:hover,
+    .full-menu-cta:focus-visible {
+      background: var(--red);
+      color: var(--text-on-red);
+      outline: none;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .menu-grid {
+        grid-template-columns: 1fr;
+        gap: 0.875rem;
+      }
+
+      .menu-nav {
+        padding: 0.625rem 0.75rem;
+      }
+
+      .nav-brand {
+        font-size: 1.25rem;
+      }
+
+      .visit-btn {
+        font-size: 0.875rem;
+        padding: 0.45em 0.875em;
+      }
+
+      .back-btn {
+        font-size: 1rem;
+        padding: 0.4em 0.875em;
+      }
+
+      .menu-section-title {
+        font-size: 1.05rem;
+      }
+
+      .menu-item-name {
+        font-size: 0.9rem;
+      }
+
+      .menu-item-desc {
+        font-size: 0.8rem;
+      }
+
+      .full-menu-cta {
+        font-size: 1rem;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section class="page-card" id="main-content">
+    <!-- nav bar -->
+    <nav class="menu-nav" aria-label="Page navigation">
+      <a href="javascript:history.back()" class="back-btn" aria-label="Go back">← BACK</a>
+      <span class="nav-brand" aria-hidden="true">FORK YEAH!</span>
+      <a href="#" class="visit-btn" id="visit-website-btn" target="_blank" rel="noopener noreferrer">
+        ↗ VISIT WEBSITE
+      </a>
+    </nav>
+
+    <div class="content" id="menu-content">
+      <!-- injected by JS -->
+      <div class="not-found" role="alert">Loading menu…</div>
+    </div>
+  </section>
+
+  <script>
+    // ── Restaurant data ────────────────────────────────────────────
+    const RESTAURANTS = {
+
+      'comal': {
+        name: 'COMAL',
+        address: '47 E 29TH ST, MANHATTAN',
+        cuisine: 'MEXICAN',
+        priceRange: '$$$',
+        website: 'https://comalnyc.com',
+        sections: [
+          {
+            title: 'STARTERS',
+            items: [
+              { name: 'Guacamole', desc: 'Hand-mashed avocado, serrano, lime & cilantro', price: '$18' },
+              { name: 'Tuna Tostada', desc: 'Sushi-grade tuna, avocado crema, chipotle aioli', price: '$22' },
+              { name: 'Elote', desc: 'Grilled street corn, cotija, chili mayo', price: '$14' },
+              { name: 'Ceviche', desc: 'Fresh fish, cucumber, red onion, lime', price: '$20' },
+            ]
+          },
+          {
+            title: 'TACOS',
+            items: [
+              { name: 'Duck Carnitas', desc: 'Slow-braised duck, pickled onion, salsa verde — 2pc', price: '$22' },
+              { name: 'Crispy Fish', desc: 'Beer-battered fish, cabbage slaw, chipotle — 2pc', price: '$20' },
+              { name: 'Mushroom', desc: 'Wild mushroom, black bean, avocado, chipotle — 2pc', price: '$18' },
+            ]
+          },
+          {
+            title: 'MASA DISHES',
+            items: [
+              { name: 'Tamale', desc: 'Heritage corn masa, salsa roja, crema', price: '$19' },
+              { name: 'Tlayuda', desc: 'Crispy masa, black bean, Oaxacan cheese, chorizo', price: '$24' },
+            ]
+          },
+          {
+            title: 'DRINKS',
+            items: [
+              { name: 'Margarita Clásica', desc: 'Reposado tequila, lime, Cointreau, salt rim', price: '$18' },
+              { name: 'Hibiscus Agua Fresca', desc: 'House-made, lightly sweetened', price: '$8' },
+              { name: 'Mexican Mule', desc: 'Mezcal, ginger beer, lime, cucumber', price: '$17' },
+            ]
+          }
+        ]
+      },
+
+      'cafeboulud': {
+        name: 'CAFE BOULUD',
+        address: '20 E 76TH ST, MANHATTAN',
+        cuisine: 'FRENCH',
+        priceRange: '$$$$',
+        website: 'https://www.cafeboulud.com/nyc/',
+        sections: [
+          {
+            title: 'AMUSE-BOUCHE & STARTERS',
+            items: [
+              { name: 'Foie Gras Torchon', desc: 'Brioche, fig jam, Sauternes gelée', price: '$38' },
+              { name: 'Soupe à l\'Oignon', desc: 'Caramelized onion, Gruyère croûte', price: '$24' },
+              { name: 'Tarte Flambée', desc: 'Alsatian flatbread, fromage blanc, lardons', price: '$26' },
+            ]
+          },
+          {
+            title: 'PLATS PRINCIPAUX',
+            items: [
+              { name: 'Dover Sole Meunière', desc: 'Whole sole, brown butter, capers, lemon', price: '$72' },
+              { name: 'Canard à l\'Orange', desc: 'Duck breast, bitter orange jus, roasted root vegetables', price: '$58' },
+              { name: 'Filet de Boeuf', desc: 'Beef tenderloin, truffle sauce, haricots verts', price: '$65' },
+              { name: 'Risotto Printanier', desc: 'Seasonal vegetables, parmesan, herb oil', price: '$42' },
+            ]
+          },
+          {
+            title: 'DESSERTS',
+            items: [
+              { name: 'Crème Brûlée', desc: 'Classic vanilla, caramelized sugar crust', price: '$18' },
+              { name: 'Paris-Brest', desc: 'Choux pastry, praline cream, toasted hazelnuts', price: '$20' },
+              { name: 'Tarte Tatin', desc: 'Caramelized apple, puff pastry, crème fraîche', price: '$19' },
+            ]
+          },
+          {
+            title: 'WINE & COCKTAILS',
+            items: [
+              { name: 'Coupe Champagne', desc: 'Seasonal selection by the glass', price: '$24' },
+              { name: 'Bordeaux Selection', desc: 'Sommelier\'s choice, by the glass', price: '$22' },
+              { name: 'French 75', desc: 'Cognac, lemon, champagne', price: '$22' },
+            ]
+          }
+        ]
+      },
+
+      'sushinakazawa': {
+        name: 'SUSHI NAKAZAWA',
+        address: '23 COMMERCE ST, MANHATTAN',
+        cuisine: 'JAPANESE / OMAKASE',
+        priceRange: '$$$$',
+        website: 'https://www.sushinakazawa.com',
+        sections: [
+          {
+            title: 'OMAKASE EXPERIENCE',
+            items: [
+              { name: 'Bar Omakase', desc: '20-course chef\'s selection, premium nigiri & cooked courses', price: '$175' },
+              { name: 'Dining Room Omakase', desc: 'Chef\'s selection, a la carte add-ons available', price: '$150' },
+            ]
+          },
+          {
+            title: 'SIGNATURE NIGIRI',
+            items: [
+              { name: 'Otoro', desc: 'Bluefin tuna belly, peak fatty cut — 2pc', price: '$28' },
+              { name: 'Uni', desc: 'Santa Barbara sea urchin, seaweed — 2pc', price: '$32' },
+              { name: 'Wagyu Beef', desc: 'A5 Japanese wagyu, truffle salt — 2pc', price: '$38' },
+              { name: 'Golden Eye Snapper', desc: 'Kinmedai, lightly seared — 2pc', price: '$24' },
+            ]
+          },
+          {
+            title: 'COOKED COURSES',
+            items: [
+              { name: 'Steamed Egg Custard', desc: 'Chawanmushi, seasonal garnish', price: '$18' },
+              { name: 'Miso Soup', desc: 'Dashi broth, tofu, wakame', price: '$12' },
+            ]
+          },
+          {
+            title: 'BEVERAGES',
+            items: [
+              { name: 'Sake Pairing', desc: '5-pour curated sake progression', price: '$95' },
+              { name: 'Premium Sake', desc: 'Dassai 23, Junmai Daiginjo — 180ml', price: '$42' },
+              { name: 'Japanese Whisky', desc: 'Hibiki Harmony, neat or on the rocks', price: '$36' },
+            ]
+          }
+        ]
+      },
+
+      'nargis-cafe': {
+        name: 'NARGIS CAFE',
+        address: '2818 CONEY ISLAND AVE, BROOKLYN',
+        cuisine: 'UZBEK CUISINE',
+        priceRange: '$$',
+        website: 'https://nargiscafe.com',
+        sections: [
+          {
+            title: 'COLD APPETIZERS',
+            items: [
+              { name: 'Achichuk', desc: 'Tomato & onion salad with fresh herbs', price: '$8' },
+              { name: 'Toshkent Salad', desc: 'Mixed vegetable salad, Tashkent style', price: '$10' },
+              { name: 'Vinegret', desc: 'Beet, potato & vegetable salad', price: '$9' },
+              { name: 'Carrot Salad', desc: 'Korean-style spiced carrots', price: '$8' },
+            ]
+          },
+          {
+            title: 'HOT MAINS',
+            items: [
+              { name: 'Plov', desc: 'Signature Uzbek rice with lamb, carrots & aromatic spices', price: '$18' },
+              { name: 'Shashlik', desc: 'Charcoal-grilled lamb skewers with onion & herbs', price: '$20' },
+              { name: 'Lagman', desc: 'Hand-pulled noodles in rich lamb & vegetable broth', price: '$17' },
+              { name: 'Manti', desc: 'Steamed dumplings filled with spiced lamb & onion', price: '$16' },
+              { name: 'Dimlama', desc: 'Slow-braised lamb with seasonal vegetables', price: '$19' },
+            ]
+          },
+          {
+            title: 'BREAD & PASTRIES',
+            items: [
+              { name: 'Non', desc: 'Traditional Uzbek flatbread, baked in tandoor', price: '$4' },
+              { name: 'Samsa', desc: 'Flaky pastry with spiced lamb & onion filling', price: '$6' },
+              { name: 'Chuchvara', desc: 'Boiled Uzbek dumplings in broth', price: '$14' },
+            ]
+          },
+          {
+            title: 'DRINKS',
+            items: [
+              { name: 'Kompot', desc: 'Traditional fruit punch, chilled', price: '$5' },
+              { name: 'Ayran', desc: 'Chilled yogurt drink, lightly salted', price: '$5' },
+              { name: 'Green Tea', desc: 'Served with lemon & sugar', price: '$4' },
+              { name: 'Choy', desc: 'Traditional Uzbek tea ceremony pot', price: '$7' },
+            ]
+          }
+        ]
+      },
+
+      'farida': {
+        name: 'FARIDA',
+        address: '32 CEDAR ST, MANHATTAN',
+        cuisine: 'UZBEK / CENTRAL ASIAN',
+        priceRange: '$$$',
+        website: 'https://faridanyc.com',
+        sections: [
+          {
+            title: 'STARTERS',
+            items: [
+              { name: 'Aubergine Salad', desc: 'Roasted eggplant, walnut & garlic dressing', price: '$14' },
+              { name: 'Samsa Trio', desc: 'Baked pastries with three seasonal fillings', price: '$16' },
+              { name: 'Bread & Spreads', desc: 'Assorted non flatbreads with seasonal accompaniments', price: '$10' },
+              { name: 'Carpaccio', desc: 'Beef tenderloin, pomegranate, herb oil', price: '$18' },
+            ]
+          },
+          {
+            title: 'MAINS',
+            items: [
+              { name: 'Plov Faridovsky', desc: 'Slow-cooked Uzbek rice, lamb ribs, quail egg, dried fruits', price: '$32' },
+              { name: 'Lamb Ribs Shashlik', desc: 'Charcoal-grilled lamb ribs, pomegranate glaze, flatbread', price: '$38' },
+              { name: 'Quail', desc: 'Spice-rubbed whole quail, dried apricot chutney, pilaf', price: '$34' },
+              { name: 'Lagman', desc: 'House-made noodles, braised short rib, chili oil', price: '$28' },
+              { name: 'Branzino', desc: 'Whole fish, Central Asian spices, herb salad', price: '$36' },
+            ]
+          },
+          {
+            title: 'DESSERT',
+            items: [
+              { name: 'Halva', desc: 'Sesame halva, pistachios, rose water & honey', price: '$12' },
+              { name: 'Seasonal Sorbet', desc: 'Chef\'s daily selection, two scoops', price: '$10' },
+              { name: 'Chak-Chak', desc: 'Fried dough with honey & poppy seeds', price: '$11' },
+            ]
+          },
+          {
+            title: 'DRINKS',
+            items: [
+              { name: 'Silk Road Sling', desc: 'Vodka, pomegranate, lemon, sumac rim', price: '$18' },
+              { name: 'Non-Alcoholic Kompot', desc: 'House-made dried fruit punch', price: '$7' },
+              { name: 'Ferghana Valley Tea', desc: 'Green tea, rose petals, cardamom', price: '$8' },
+            ]
+          }
+        ]
+      },
+
+      'uzbekistan-restaurant': {
+        name: 'UZBEKISTAN RESTAURANT',
+        address: '2720 OCEAN AVE, BROOKLYN',
+        cuisine: 'UZBEK CUISINE',
+        priceRange: '$$',
+        website: 'https://www.yelp.com/biz/uzbekistan-restaurant-brooklyn',
+        sections: [
+          {
+            title: 'SOUPS',
+            items: [
+              { name: 'Mastava', desc: 'Rice soup with lamb, tomato & vegetables', price: '$10' },
+              { name: 'Shurpa', desc: 'Clear lamb broth with potato & carrot', price: '$11' },
+              { name: 'Naryn', desc: 'Cold noodle soup with horse meat & pickles', price: '$14' },
+            ]
+          },
+          {
+            title: 'MAINS',
+            items: [
+              { name: 'Plov', desc: 'Lamb & rice pilaf with raisins & garlic', price: '$16' },
+              { name: 'Shashlik Mix', desc: 'Assorted grilled meats: lamb, beef & chicken', price: '$24' },
+              { name: 'Manti', desc: 'Steamed meat dumplings, sour cream dip', price: '$15' },
+              { name: 'Dimlama', desc: 'One-pot lamb & vegetable stew', price: '$17' },
+            ]
+          },
+          {
+            title: 'SIDES & BREAD',
+            items: [
+              { name: 'Lepeshka', desc: 'Freshly baked Uzbek round bread', price: '$4' },
+              { name: 'Samsa (2pc)', desc: 'Lamb-filled pastry, golden-baked', price: '$7' },
+            ]
+          },
+          {
+            title: 'DRINKS',
+            items: [
+              { name: 'Ayran', desc: 'Traditional yogurt drink', price: '$5' },
+              { name: 'Kompot', desc: 'Fruit punch, chilled', price: '$5' },
+              { name: 'Choy', desc: 'Uzbek green tea, large pot', price: '$6' },
+            ]
+          }
+        ]
+      },
+
+      'samarkand': {
+        name: 'SAMARKAND',
+        address: '1117 BRIGHTON BEACH AVE, BROOKLYN',
+        cuisine: 'UZBEK / RUSSIAN FUSION',
+        priceRange: '$$',
+        website: 'https://www.yelp.com/biz/samarkand-brooklyn',
+        sections: [
+          {
+            title: 'COLD MEZZE',
+            items: [
+              { name: 'Assorted Salads', desc: 'Selection of three seasonal salads', price: '$12' },
+              { name: 'Stuffed Peppers', desc: 'Bell peppers filled with rice & vegetables', price: '$11' },
+              { name: 'Eggplant Rolls', desc: 'Fried eggplant stuffed with walnut paste', price: '$13' },
+            ]
+          },
+          {
+            title: 'MAINS',
+            items: [
+              { name: 'Samarkand Plov', desc: 'Aromatic rice pilaf, saffron, lamb & quail eggs', price: '$18' },
+              { name: 'Lamb Shashlik', desc: 'Marinated lamb on skewers, grilled over coals', price: '$22' },
+              { name: 'Chicken Tabaka', desc: 'Crispy pan-fried whole chicken, garlic sauce', price: '$20' },
+              { name: 'Lagman Soup', desc: 'Spicy noodle soup with lamb & vegetables', price: '$16' },
+            ]
+          },
+          {
+            title: 'DESSERTS',
+            items: [
+              { name: 'Chak-Chak', desc: 'Honey-glazed fried dough dessert', price: '$8' },
+              { name: 'Halva Plate', desc: 'Mixed halva with dried fruits & nuts', price: '$9' },
+            ]
+          },
+          {
+            title: 'DRINKS',
+            items: [
+              { name: 'House Vodka Shot', desc: 'Premium Russian vodka', price: '$8' },
+              { name: 'Kompot', desc: 'Chilled berry fruit punch', price: '$5' },
+              { name: 'Kefir', desc: 'Fresh cultured milk drink', price: '$5' },
+            ]
+          }
+        ]
+      },
+
+      'bukhara-grill': {
+        name: 'BUKHARA GRILL',
+        address: '217 E 49TH ST, MANHATTAN',
+        cuisine: 'CENTRAL ASIAN / INDIAN',
+        priceRange: '$$$',
+        website: 'https://www.bukharagrillnyc.com',
+        sections: [
+          {
+            title: 'TANDOOR BREADS',
+            items: [
+              { name: 'Dal Bukhara Bread', desc: 'House-spiced lentil flatbread', price: '$9' },
+              { name: 'Roomali Roti', desc: 'Paper-thin handkerchief bread, 2pc', price: '$8' },
+              { name: 'Peshwari Naan', desc: 'Sweet naan with almonds & coconut', price: '$8' },
+            ]
+          },
+          {
+            title: 'TANDOOR MAINS',
+            items: [
+              { name: 'Sikandari Raan', desc: 'Whole leg of lamb, marinated 2 days, slow-roasted', price: '$48' },
+              { name: 'Seekh Kebab', desc: 'Spiced minced lamb, charcoal-cooked — 3pc', price: '$26' },
+              { name: 'Murgh Malai Tikka', desc: 'Cream-marinated chicken, green chutney', price: '$28' },
+              { name: 'Paneer Tikka', desc: 'Spiced cottage cheese, bell pepper, onion', price: '$24' },
+            ]
+          },
+          {
+            title: 'CURRIES & RICE',
+            items: [
+              { name: 'Dal Bukhara', desc: 'Slow-cooked black lentil, butter, cream — signature dish', price: '$22' },
+              { name: 'Lamb Biryani', desc: 'Aromatic basmati rice, saffron-braised lamb, caramelized onion', price: '$34' },
+              { name: 'Shahi Korma', desc: 'Chicken in royal cream sauce, cashews', price: '$28' },
+            ]
+          },
+          {
+            title: 'BEVERAGES',
+            items: [
+              { name: 'Mango Lassi', desc: 'Fresh mango, yogurt, cardamom', price: '$10' },
+              { name: 'Masala Chai', desc: 'Spiced milk tea', price: '$7' },
+              { name: 'Kingfisher Beer', desc: 'Indian pale lager, 22 oz', price: '$12' },
+            ]
+          }
+        ]
+      },
+
+      'tashkent-plov-center': {
+        name: 'TASHKENT PLOV CENTER',
+        address: '3006 OCEAN PKWY, BROOKLYN',
+        cuisine: 'UZBEK CUISINE',
+        priceRange: '$',
+        website: 'https://www.yelp.com/biz/tashkent-plov-center-brooklyn',
+        sections: [
+          {
+            title: 'THE PLOV MENU',
+            items: [
+              { name: 'Classic Lamb Plov', desc: 'The original: lamb, rice, carrots, onion, cumin', price: '$12' },
+              { name: 'Wedding Plov', desc: 'Special occasion recipe with quail eggs & chickpeas', price: '$15' },
+              { name: 'Vegetarian Plov', desc: 'Fresh seasonal vegetables, saffron rice, raisins', price: '$10' },
+              { name: 'Beef Plov', desc: 'Slow-cooked beef, garlic head, barberries', price: '$13' },
+            ]
+          },
+          {
+            title: 'SIDES',
+            items: [
+              { name: 'Achichuk Salad', desc: 'Tomato, onion, parsley — classic side', price: '$6' },
+              { name: 'Lepeshka', desc: 'Tandoor-baked Uzbek bread', price: '$3' },
+              { name: 'Marinated Onions', desc: 'Red onion, sumac, vinegar', price: '$4' },
+            ]
+          },
+          {
+            title: 'EXTRAS',
+            items: [
+              { name: 'Extra Lamb', desc: 'Additional lamb portion', price: '$7' },
+              { name: 'Samsa (2pc)', desc: 'Lamb-filled flaky pastry', price: '$6' },
+            ]
+          },
+          {
+            title: 'DRINKS',
+            items: [
+              { name: 'Ayran', desc: 'Cold yogurt drink', price: '$4' },
+              { name: 'Choy (Tea)', desc: 'Green tea, pot serves 2', price: '$5' },
+              { name: 'Kompot', desc: 'Fruit punch', price: '$4' },
+            ]
+          }
+        ]
+      },
+
+      'silk-road-kitchen': {
+        name: 'SILK ROAD KITCHEN',
+        address: '98-04 QUEENS BLVD, QUEENS',
+        cuisine: 'CENTRAL ASIAN',
+        priceRange: '$$',
+        website: 'https://www.yelp.com/biz/silk-road-kitchen-rego-park',
+        sections: [
+          {
+            title: 'APPETIZERS',
+            items: [
+              { name: 'Hummus & Non', desc: 'House hummus, sesame oil, warm flatbread', price: '$11' },
+              { name: 'Sambusa Plate', desc: 'Three stuffed pastries: lamb, potato & cheese', price: '$13' },
+              { name: 'Mixed Pickles', desc: 'House-fermented vegetables', price: '$8' },
+            ]
+          },
+          {
+            title: 'MAINS',
+            items: [
+              { name: 'Silk Road Plov', desc: 'Fragrant rice pilaf with lamb, dried fruit & nuts', price: '$17' },
+              { name: 'Mixed Grill', desc: 'Lamb shashlik, beef kebab, chicken tikka & sides', price: '$28' },
+              { name: 'Lagman', desc: 'Thick hand-pulled noodles, spicy meat sauce', price: '$16' },
+              { name: 'Borscht', desc: 'Traditional beet soup, sour cream', price: '$12' },
+            ]
+          },
+          {
+            title: 'DESSERTS',
+            items: [
+              { name: 'Baklava', desc: 'Walnut & pistachio pastry, honey syrup', price: '$8' },
+              { name: 'Pishme', desc: 'Fried dough sticks, honey dip', price: '$7' },
+            ]
+          },
+          {
+            title: 'DRINKS',
+            items: [
+              { name: 'Ayran', desc: 'Yogurt drink, salted or plain', price: '$5' },
+              { name: 'House Lemonade', desc: 'Fresh lemon, mint, sparkling water', price: '$6' },
+              { name: 'Choy', desc: 'Uzbek green tea', price: '$5' },
+            ]
+          }
+        ]
+      },
+
+      'osh-uzbek-cuisine': {
+        name: 'OSH UZBEK CUISINE',
+        address: '3080 NOSTRAND AVE, BROOKLYN',
+        cuisine: 'UZBEK CUISINE',
+        priceRange: '$$',
+        website: 'https://www.yelp.com/biz/osh-uzbek-cuisine-brooklyn',
+        sections: [
+          {
+            title: 'STARTERS',
+            items: [
+              { name: 'Forshmak', desc: 'Herring salad, egg & onion — a Brighton Beach classic', price: '$12' },
+              { name: 'Cold Cuts Plate', desc: 'Assorted smoked meats & sausages', price: '$16' },
+              { name: 'Stuffed Mushrooms', desc: 'Mushrooms filled with cheese & herbs', price: '$13' },
+            ]
+          },
+          {
+            title: 'MAINS',
+            items: [
+              { name: 'Osh Plov', desc: 'Osh-style plov: lamb, rice, chickpeas, barberries', price: '$17' },
+              { name: 'Kovurma Lagman', desc: 'Stir-fried lagman noodles with lamb & vegetables', price: '$18' },
+              { name: 'Shashlik Assortment', desc: 'Lamb, beef & liver skewers over coals — serves 2', price: '$32' },
+              { name: 'Chuchvara Soup', desc: 'Small meat dumplings in clear broth', price: '$15' },
+            ]
+          },
+          {
+            title: 'SIDES',
+            items: [
+              { name: 'Fried Rice', desc: 'With egg, scallion, soy', price: '$8' },
+              { name: 'Lepeshka', desc: 'Uzbek flatbread, fresh from oven', price: '$3' },
+            ]
+          },
+          {
+            title: 'DRINKS',
+            items: [
+              { name: 'Kvas', desc: 'Fermented bread drink, non-alcoholic', price: '$5' },
+              { name: 'Kompot', desc: 'Mixed fruit punch, chilled', price: '$5' },
+              { name: 'Beer (Draft)', desc: 'Ask server for current selection', price: '$8' },
+            ]
+          }
+        ]
+      },
+
+      'ferghana': {
+        name: 'FERGHANA',
+        address: '2651 CONEY ISLAND AVE, BROOKLYN',
+        cuisine: 'UZBEK CUISINE',
+        priceRange: '$$',
+        website: 'https://www.yelp.com/biz/ferghana-brooklyn',
+        sections: [
+          {
+            title: 'SALADS',
+            items: [
+              { name: 'Ferghana Salad', desc: 'House salad with fresh vegetables & herbs', price: '$9' },
+              { name: 'Grilled Vegetable Plate', desc: 'Seasonal grilled vegetables, yogurt dip', price: '$11' },
+              { name: 'Beet & Walnut', desc: 'Roasted beet, walnut, garlic & mayo', price: '$10' },
+            ]
+          },
+          {
+            title: 'MAINS',
+            items: [
+              { name: 'Ferghana Plov', desc: 'Valley-style plov with generous lamb & raisins', price: '$17' },
+              { name: 'Lamb Shashlik', desc: 'Premium marinated lamb, grilled over charcoal', price: '$21' },
+              { name: 'Lamb Ribs', desc: 'Slow-braised short ribs with potatoes', price: '$24' },
+              { name: 'Manti', desc: 'Classic steamed dumplings, 8 pieces, yogurt dip', price: '$15' },
+            ]
+          },
+          {
+            title: 'SIDES & BREAD',
+            items: [
+              { name: 'Tandir Bread', desc: 'Freshly baked in our clay oven', price: '$4' },
+              { name: 'Samsa', desc: 'Crisp lamb-filled pastry, 2 pieces', price: '$6' },
+            ]
+          },
+          {
+            title: 'DRINKS',
+            items: [
+              { name: 'Ferghana Kompot', desc: 'Seasonal mixed fruit punch', price: '$5' },
+              { name: 'Green Tea', desc: 'Per pot, serves 2', price: '$6' },
+              { name: 'Ayran', desc: 'Chilled yogurt drink', price: '$5' },
+            ]
+          }
+        ]
+      },
+
+      'navat': {
+        name: 'NAVAT',
+        address: '107-26 CONTINENTAL AVE, QUEENS',
+        cuisine: 'UZBEK CUISINE',
+        priceRange: '$$',
+        website: 'https://www.yelp.com/biz/navat-forest-hills',
+        sections: [
+          {
+            title: 'COLD STARTERS',
+            items: [
+              { name: 'Assorted Pita & Dips', desc: 'Three dips: hummus, eggplant, walnut', price: '$13' },
+              { name: 'Tashkent Salad', desc: 'Tomato, cucumber, onion, herbs', price: '$9' },
+              { name: 'Forshmak', desc: 'Traditional herring appetizer', price: '$11' },
+            ]
+          },
+          {
+            title: 'MAINS',
+            items: [
+              { name: 'Navat Plov', desc: 'Signature plov with lamb, raisins, pomegranate seeds', price: '$18' },
+              { name: 'Lamb Shashlik', desc: 'Herb-marinated, charcoal-grilled, 3 skewers', price: '$23' },
+              { name: 'Lagman', desc: 'Fresh noodles in spiced lamb broth with vegetables', price: '$16' },
+              { name: 'Chicken Tabaka', desc: 'Spatch-cocked chicken, pressed & pan-fried crispy', price: '$22' },
+            ]
+          },
+          {
+            title: 'DESSERTS',
+            items: [
+              { name: 'Navat Candy', desc: 'House rock sugar crystals & dried fruits plate', price: '$8' },
+              { name: 'Halva Trio', desc: 'Sesame, sunflower & pistachio halva sampler', price: '$11' },
+            ]
+          },
+          {
+            title: 'DRINKS',
+            items: [
+              { name: 'Ayran', desc: 'Traditional yogurt drink', price: '$5' },
+              { name: 'Choy Ceremony', desc: 'Green tea in traditional teapot, serves 2', price: '$7' },
+              { name: 'House Kompot', desc: 'Seasonal fruit punch', price: '$5' },
+            ]
+          }
+        ]
+      }
+
+    };
+
+    // ── Render ────────────────────────────────────────────────────
+    const params   = new URLSearchParams(window.location.search);
+    const slug     = params.get('r') || '';
+    const rest     = RESTAURANTS[slug];
+    const content  = document.getElementById('menu-content');
+    const visitBtn = document.getElementById('visit-website-btn');
+
+    if (!rest) {
+      content.innerHTML = `<div class="not-found" role="alert">
+        Restaurant not found. <a href="index.html" style="color:var(--red)">← Back to ForkYeah</a>
+      </div>`;
+      visitBtn.style.display = 'none';
+    } else {
+      document.title = `ForkYeah — ${rest.name} Menu`;
+      visitBtn.href  = rest.website;
+      visitBtn.setAttribute('aria-label', `Visit ${rest.name} website`);
+
+      const priceCount = rest.priceRange.length;
+      const priceLabel = ['Budget', 'Moderate', 'Upscale', 'Fine Dining'][priceCount - 1] || '';
+
+      const sectionsHTML = rest.sections.map(section => `
+        <div class="menu-section" role="region" aria-label="${section.title} menu section">
+          <div class="menu-section-title" aria-hidden="true">${section.title}</div>
+          <h3 class="sr-only">${section.title}</h3>
+          <ul class="menu-items" role="list" style="list-style:none; padding:0; margin:0;">
+            ${section.items.map(item => `
+              <li class="menu-item" role="listitem">
+                <div class="menu-item-left">
+                  <div class="menu-item-name">${item.name}</div>
+                  <div class="menu-item-desc">${item.desc}</div>
+                </div>
+                <div class="menu-item-price" aria-label="${item.price}">${item.price}</div>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+      `).join('');
+
+      content.innerHTML = `
+        <div class="header-row">
+          <div class="header-left">
+            <div class="title-block"><h1>${rest.name}</h1></div>
+            <div class="loc-badge">${rest.cuisine}</div>
+            <div class="price-badge" aria-label="Price range: ${rest.priceRange} — ${priceLabel}">
+              ${rest.priceRange} · ${priceLabel.toUpperCase()}
+            </div>
+          </div>
+          <div class="page-num" aria-label="Menu page">
+            <span class="n" aria-hidden="true">🍴</span>
+            <span class="p">MENU</span>
+          </div>
+        </div>
+
+        <div class="divider" role="separator" aria-hidden="true">
+          <div class="dash"></div>
+          <div class="fork-dot">🍴</div>
+          <div class="dash"></div>
+        </div>
+
+        <p style="font-weight:600; font-size:0.9rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--red); opacity:0.6; margin-bottom:0.25rem;">
+          ${rest.address}
+        </p>
+
+        <div class="menu-grid" role="list" aria-label="${rest.name} menu sections">
+          ${sectionsHTML}
+        </div>
+
+        <p class="menu-note" role="note">
+          ✦ Prices & availability may vary. Menu is curated for informational purposes. ✦
+        </p>
+
+        <a href="${rest.website}" target="_blank" rel="noopener noreferrer"
+           class="full-menu-cta"
+           aria-label="View the complete live menu for ${rest.name} on their website">
+          <span aria-hidden="true">✦</span>
+          VIEW FULL MENU ON WEBSITE
+          <span aria-hidden="true">↗</span>
+        </a>
+      `;
+    }
+  </script>
+
+  <style>
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</body>
+</html>
