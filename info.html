@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ForkYeah — Restaurant Info</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* ── Nav bar ── */
+    .info-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.625rem;
+      border-bottom: var(--border-thick) solid var(--red);
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      background: transparent;
+      color: var(--red);
+      font-family: var(--font);
+      font-weight: 600;
+      font-size: 1.25rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: 0.1875rem solid var(--red);
+      padding: 0.5em 1.1em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .back-btn:hover,
+    .back-btn:focus-visible {
+      background: var(--red);
+      color: var(--text-on-red);
+      outline: none;
+    }
+
+    .nav-brand {
+      font-weight: 900;
+      font-size: 1.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--red);
+      line-height: 1;
+    }
+
+    /* ── Header helpers ── */
+    .header-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.35rem;
+    }
+
+    .price-badge {
+      display: inline-block;
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 1.125rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      border: 0.125rem dashed var(--red);
+      padding: 0.25em 0.75em;
+      margin-top: 0.25rem;
+    }
+
+    /* ── Info card grid ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    /* ── Info section block ── */
+    .info-section {
+      border: var(--border-mid) solid var(--red);
+      overflow: hidden;
+    }
+
+    .info-section-title {
+      background: var(--red);
+      color: var(--text-on-red);
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.5em 0.875em;
+    }
+
+    .info-section-body {
+      padding: 0.875rem;
+      font-family: var(--font);
+      color: var(--red);
+    }
+
+    .info-row {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.55rem 0;
+      border-bottom: 1px dashed var(--gray);
+      align-items: flex-start;
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      font-weight: 800;
+      font-size: 0.875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      min-width: 5.5rem;
+      line-height: 1.3;
+    }
+
+    .info-value {
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      line-height: 1.4;
+    }
+
+    /* ── About section (full-width) ── */
+    .about-section {
+      border: var(--border-mid) solid var(--red);
+      overflow: hidden;
+      margin-top: 1.25rem;
+    }
+
+    .about-body {
+      padding: 1rem;
+      font-family: var(--font);
+      font-weight: 600;
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      line-height: 1.55;
+      color: var(--red);
+    }
+
+    /* ── Hero image ── */
+    .info-hero {
+      width: 100%;
+      height: 14rem;
+      overflow: hidden;
+      border: var(--border-mid) solid var(--red);
+      margin-top: 1rem;
+    }
+
+    .info-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ── Menu CTA ── */
+    .menu-cta {
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      font-family: var(--font);
+      font-weight: 800;
+      font-size: 1.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-on-red);
+      text-decoration: none;
+      padding: 0.75em 1em;
+      background: var(--red);
+      border: var(--border-thick) solid var(--red);
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .menu-cta:hover,
+    .menu-cta:focus-visible {
+      background: transparent;
+      color: var(--red);
+      outline: none;
+    }
+
+    /* ── Visit website link ── */
+    .visit-link {
+      margin-top: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      text-decoration: none;
+      padding: 0.55em 1em;
+      border: 0.1875rem solid var(--red);
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .visit-link:hover {
+      background: var(--red);
+      color: var(--text-on-red);
+    }
+
+    /* ── Not found ── */
+    .not-found {
+      text-align: center;
+      padding: 3rem 1rem;
+      font-weight: 700;
+      font-size: 2rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .info-grid {
+        grid-template-columns: 1fr;
+        gap: 0.875rem;
+      }
+      .info-nav {
+        padding: 0.625rem 0.75rem;
+      }
+      .nav-brand {
+        font-size: 1.25rem;
+      }
+      .menu-cta {
+        font-size: 1.25rem;
+        gap: 0.5rem;
+        padding: 0.65em 0.875em;
+      }
+      .info-hero {
+        height: 10rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section class="page-card" id="main-content">
+    <!-- Nav bar -->
+    <nav class="info-nav" aria-label="Page navigation">
+      <a href="javascript:history.back()" class="back-btn" aria-label="Go back">← BACK</a>
+
+      <span style="width:1px; display:inline-block;"></span>
+    </nav>
+
+    <div class="content" id="info-content">
+      <div class="not-found" role="alert">Loading info…</div>
+    </div>
+  </section>
+
+  <script>
+    // ── Restaurant data ─────────────────────────────────────────────
+    const RESTAURANTS = {
+
+      'nargis-cafe': {
+        name: 'NARGIS CAFE',
+        address: '2818 CONEY ISLAND AVE, BROOKLYN, NY 11235',
+        cuisine: 'UZBEK CUISINE',
+        priceRange: '$$',
+        phone: '(718) 872-0200',
+        hours: 'Mon–Sun: 11:00 AM – 10:00 PM',
+        neighborhood: 'Brighton Beach, Brooklyn',
+        website: 'https://nargiscafe.com',
+        image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80',
+        about: 'Nargis Cafe is a beloved Uzbek institution in Brooklyn\'s Brighton Beach neighborhood. Known for its generous portions and deeply authentic Central Asian cooking, Nargis serves up some of the finest plov, shashlik, and lagman in New York City. The warm, unpretentious atmosphere and family-style dining make it a go-to destination for the local Uzbek community and adventurous food lovers alike.',
+      },
+
+      'farida': {
+        name: 'FARIDA',
+        address: '32 CEDAR ST, NEW YORK, NY 10005',
+        cuisine: 'UZBEK CUISINE',
+        priceRange: '$$$',
+        phone: '(212) 785-0700',
+        hours: 'Mon–Fri: 12:00 PM – 10:00 PM | Sat–Sun: 1:00 PM – 10:00 PM',
+        neighborhood: 'Financial District, Manhattan',
+        website: 'https://www.yelp.com/biz/farida-new-york',
+        image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80',
+        about: 'Farida brings the warmth of Central Asian hospitality to the heart of Manhattan\'s Financial District. Named after a beloved Uzbek grandmother, the restaurant pays tribute to traditional recipes passed down through generations. Expect refined takes on classic Uzbek dishes — velvety plov, crispy samsa, and tender manti — in an elegant but approachable setting.',
+      },
+
+      'uzbekistan-restaurant': {
+        name: 'UZBEKISTAN RESTAURANT',
+        address: '2720 OCEAN AVE, BROOKLYN, NY 11229',
+        cuisine: 'UZBEK CUISINE',
+        priceRange: '$$',
+        phone: '(718) 769-0777',
+        hours: 'Mon–Sun: 12:00 PM – 11:00 PM',
+        neighborhood: 'Sheepshead Bay, Brooklyn',
+        website: 'https://www.yelp.com/biz/uzbekistan-restaurant-brooklyn',
+        image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=800&q=80',
+        about: 'A neighborhood staple that has been feeding Brooklyn\'s Uzbek diaspora for years. Uzbekistan Restaurant is celebrated for its smoky shashlik cooked over live coals and its rich, aromatic plov. The restaurant captures the spirit of a Tashkent tea house — convivial, unhurried, and deeply satisfying.',
+      },
+
+      'samarkand': {
+        name: 'SAMARKAND',
+        address: '1117 BRIGHTON BEACH AVE, BROOKLYN, NY 11235',
+        cuisine: 'UZBEK CUISINE',
+        priceRange: '$$',
+        phone: '(718) 769-1008',
+        hours: 'Mon–Sun: 11:00 AM – 11:00 PM',
+        neighborhood: 'Brighton Beach, Brooklyn',
+        website: 'https://www.yelp.com/biz/samarkand-brooklyn',
+        image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80',
+        about: 'Named after Uzbekistan\'s legendary Silk Road city, Samarkand brings centuries of culinary tradition to Brighton Beach Avenue. The restaurant\'s menu reads like a journey through Central Asia — from delicate achichuk salads to slow-braised lamb mains. A must-visit for anyone looking to explore Uzbek cuisine beyond the basics.',
+      },
+
+      'bukhara-grill': {
+        name: 'BUKHARA GRILL',
+        address: '217 E 49TH ST, MANHATTAN, NY 10017',
+        cuisine: 'UZBEK & INDIAN CUISINE',
+        priceRange: '$$$',
+        phone: '(212) 888-2839',
+        hours: 'Mon–Fri: 12:00 PM – 10:30 PM | Sat–Sun: 1:00 PM – 10:30 PM',
+        neighborhood: 'Midtown East, Manhattan',
+        website: 'https://www.bukharaGrill.com',
+        image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+        about: 'Bukhara Grill is a beloved Midtown landmark known for its tandoor-cooked specialties and vibrant atmosphere. While the menu spans both Uzbek and Indian traditions, the restaurant\'s heart lies in its smoky clay-oven breads, charcoal-grilled kebabs, and richly spiced rice dishes. A Midtown institution for over two decades.',
+      },
+
+      'tashkent-plov-center': {
+        name: 'TASHKENT PLOV CENTER',
+        address: '3006 OCEAN PKWY, BROOKLYN, NY 11235',
+        cuisine: 'UZBEK CUISINE',
+        priceRange: '$',
+        phone: '(718) 513-4321',
+        hours: 'Mon–Sun: 10:00 AM – 9:00 PM',
+        neighborhood: 'Brighton Beach, Brooklyn',
+        website: 'https://www.yelp.com/biz/tashkent-plov-center-brooklyn',
+        image: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=800&q=80',
+        about: 'As the name suggests, plov is the star at Tashkent Plov Center — and they\'ve perfected it. This no-frills, cafeteria-style spot serves massive portions of fragrant Uzbek rice cooked in lamb fat with carrots, chickpeas, and tender meat. It\'s the kind of place where regulars arrive early before the pot runs out.',
+      },
+
+      'silk-road-kitchen': {
+        name: 'SILK ROAD KITCHEN',
+        address: '98-04 QUEENS BLVD, QUEENS, NY 11374',
+        cuisine: 'UZBEK CUISINE',
+        priceRange: '$$',
+        phone: '(718) 897-5500',
+        hours: 'Tue–Sun: 11:00 AM – 10:00 PM | Mon: Closed',
+        neighborhood: 'Rego Park, Queens',
+        website: 'https://www.yelp.com/biz/silk-road-kitchen-rego-park',
+        image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80',
+        about: 'Silk Road Kitchen channels the ancient trade routes of Central Asia through its eclectic, generous menu. Located along busy Queens Boulevard, this hidden gem serves everything from hand-pulled lagman noodles to crispy samsa pastries fresh from the oven. A fantastic spot for family dinners and group gatherings.',
+      },
+
+      'osh-uzbek-cuisine': {
+        name: 'OSH UZBEK CUISINE',
+        address: '3080 NOSTRAND AVE, BROOKLYN, NY 11229',
+        cuisine: 'UZBEK CUISINE',
+        priceRange: '$$',
+        phone: '(718) 676-9200',
+        hours: 'Mon–Sun: 12:00 PM – 10:00 PM',
+        neighborhood: 'Sheepshead Bay, Brooklyn',
+        website: 'https://www.yelp.com/biz/osh-uzbek-cuisine-brooklyn',
+        image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?w=800&q=80',
+        about: 'Named after the ancient Kyrgyz city of Osh — a crossroads of Uzbek, Kyrgyz and Russian culinary traditions — this Brooklyn restaurant brings together a rich mix of Central Asian flavors. Standouts include the Osh-style plov with chickpeas and barberries, and the kovurma lagman stir-fried with tender lamb and seasonal vegetables.',
+      },
+
+      'ferghana': {
+        name: 'FERGHANA',
+        address: '2651 CONEY ISLAND AVE, BROOKLYN, NY 11235',
+        cuisine: 'UZBEK CUISINE',
+        priceRange: '$$',
+        phone: '(718) 645-1010',
+        hours: 'Mon–Sun: 12:00 PM – 11:00 PM',
+        neighborhood: 'Brighton Beach, Brooklyn',
+        website: 'https://www.yelp.com/biz/ferghana-brooklyn',
+        image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=80',
+        about: 'Ferghana takes its name from Uzbekistan\'s most fertile valley, and the restaurant lives up to that bounty with a lavish, market-fresh menu. Everything here feels abundant — from the heaping grilled vegetable plates to the slow-braised lamb ribs. Freshly baked tandir bread and charcoal-grilled shashlik are the undisputed highlights.',
+      },
+
+      'navat': {
+        name: 'NAVAT',
+        address: '107-26 CONTINENTAL AVE, QUEENS, NY 11375',
+        cuisine: 'UZBEK CUISINE',
+        priceRange: '$$',
+        phone: '(718) 261-7777',
+        hours: 'Mon–Sun: 11:00 AM – 10:30 PM',
+        neighborhood: 'Forest Hills, Queens',
+        website: 'https://www.yelp.com/biz/navat-forest-hills',
+        image: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=800&q=80',
+        about: 'Navat — meaning "rock sugar" in Uzbek — is a Queens gem known for its sweet hospitality and deeply authentic food. The restaurant draws Forest Hills\' Uzbek community for its signature plov dotted with pomegranate seeds, herb-marinated shashlik cooked over charcoal, and a traditional tea ceremony that makes every meal feel like a celebration.',
+      },
+
+      // Featured Bites restaurants
+      'comal': {
+        name: 'COMAL',
+        address: '47 E 29TH ST, MANHATTAN, NY 10016',
+        cuisine: 'MEXICAN',
+        priceRange: '$$$',
+        phone: '(212) 679-2600',
+        hours: 'Mon–Thu: 12:00 PM – 10:00 PM | Fri–Sat: 12:00 PM – 11:00 PM | Sun: 11:00 AM – 9:00 PM',
+        neighborhood: 'NoMad, Manhattan',
+        website: 'https://comalnyc.com',
+        image: 'https://axwwgrkdco.cloudimg.io/v7/__gmpics3__/da61538c3d3043948769f77066696cf0.jpg?w=800&h=600&org_if_sml=1',
+        about: 'A stylish NYC restaurant known for elevated Mexican flavors, fresh ingredients, and modern presentation. Comal draws from the rich traditions of Mexican regional cooking while embracing contemporary NYC sensibilities. The duck carnitas, tuna tostada, and masa dishes have made it a destination for serious food lovers.',
+      },
+
+      'cafeboulud': {
+        name: 'CAFE BOULUD',
+        address: '20 E 76TH ST, MANHATTAN, NY 10021',
+        cuisine: 'FRENCH',
+        priceRange: '$$$$',
+        phone: '(212) 772-2600',
+        hours: 'Mon–Sat: 12:00 PM – 10:30 PM | Sun: 11:00 AM – 9:00 PM',
+        neighborhood: 'Upper East Side, Manhattan',
+        website: 'https://www.cafeboulud.com/nyc/',
+        image: 'https://axwwgrkdco.cloudimg.io/v7/__gmpics3__/50638a3d4a8e4405acc0ade451b10a38.jpeg?w=800&h=600&org_if_sml=1',
+        about: 'An upscale fine dining destination offering elegant French cuisine in a refined Upper East Side setting. Chef Daniel Boulud\'s iconic bistro celebrates the seasons through meticulous technique and impeccable ingredients. From foie gras torchon to whole Dover sole meunière, every plate is a love letter to classical French cooking.',
+      },
+
+      'sushinakazawa': {
+        name: 'SUSHI NAKAZAWA',
+        address: '23 COMMERCE ST, MANHATTAN, NY 10014',
+        cuisine: 'JAPANESE / OMAKASE',
+        priceRange: '$$$$',
+        phone: '(212) 924-2212',
+        hours: 'Tue–Sat: 5:30 PM – 11:00 PM | Mon & Sun: Closed',
+        neighborhood: 'West Village, Manhattan',
+        website: 'https://www.sushinakazawa.com',
+        image: 'https://axwwgrkdco.cloudimg.io/v7/__gmpics3__/415bba3551414e04b6793383d28c0b6c.jpeg?w=800&h=600&org_if_sml=1',
+        about: 'A high-end sushi restaurant famous for its omakase experience, precision, and premium seafood. Chef Daisuke Nakazawa — a disciple of the legendary Jiro Ono — brings Jiro-style mastery to the West Village. The 20-course omakase at the counter is one of NYC\'s most coveted dining experiences.',
+      },
+
+    };
+
+    // ── Render ────────────────────────────────────────────────────
+    const params  = new URLSearchParams(window.location.search);
+    const slug    = params.get('r') || '';
+    const rest    = RESTAURANTS[slug];
+    const content = document.getElementById('info-content');
+
+    if (!rest) {
+      content.innerHTML = `<div class="not-found" role="alert">
+        Restaurant not found. <a href="index.html" style="color:var(--red)">← Back to ForkYeah</a>
+      </div>`;
+    } else {
+      document.title = `ForkYeah — ${rest.name}`;
+
+      const priceCount = rest.priceRange.length;
+      const priceLabel = ['Budget', 'Moderate', 'Upscale', 'Fine Dining'][priceCount - 1] || '';
+
+      content.innerHTML = `
+        <div class="header-row">
+          <div class="header-left">
+            <div class="title-block"><h1>${rest.name}</h1></div>
+            <div class="loc-badge">${rest.cuisine}</div>
+            <div class="price-badge" aria-label="Price range: ${rest.priceRange} — ${priceLabel}">
+              ${rest.priceRange} · ${priceLabel.toUpperCase()}
+            </div>
+          </div>
+          <div class="page-num" aria-label="Info page">
+            <span class="n" style="font-size:3.5rem; letter-spacing:0.08em;" aria-hidden="true">INFO</span>
+          </div>
+        </div>
+
+        <div class="divider" role="separator" aria-hidden="true">
+          <div class="dash"></div>
+          <div class="fork-dot" style="font-size:0; background:var(--red);"></div>
+          <div class="dash"></div>
+        </div>
+
+        <div class="info-hero">
+          <img src="${rest.image}" alt="${rest.name}" loading="lazy">
+        </div>
+
+        <div class="info-grid">
+          <div class="info-section">
+            <div class="info-section-title">LOCATION & HOURS</div>
+            <div class="info-section-body">
+              <div class="info-row">
+                <span class="info-label">Address</span>
+                <span class="info-value">${rest.address}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Area</span>
+                <span class="info-value">${rest.neighborhood}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Hours</span>
+                <span class="info-value">${rest.hours}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <div class="info-section-title">CONTACT & DETAILS</div>
+            <div class="info-section-body">
+              <div class="info-row">
+                <span class="info-label">Phone</span>
+                <span class="info-value"><a href="tel:${rest.phone}" style="color:var(--red); text-decoration:none;">${rest.phone}</a></span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Cuisine</span>
+                <span class="info-value">${rest.cuisine}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Price</span>
+                <span class="info-value">${rest.priceRange} &mdash; ${priceLabel}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-section">
+          <div class="info-section-title">ABOUT</div>
+          <div class="about-body">${rest.about}</div>
+        </div>
+
+        <a href="menu.html?r=${slug}" class="menu-cta" aria-label="View menu for ${rest.name}">
+          <span aria-hidden="true">🍽</span>
+          VIEW MENU
+          <span aria-hidden="true">→</span>
+        </a>
+
+        <a href="${rest.website}" target="_blank" rel="noopener noreferrer" class="visit-link"
+           aria-label="Visit ${rest.name} official website">
+          ↗ VISIT RESTAURANT WEBSITE
+        </a>
+      `;
+    }
+  </script>
+</body>
+</html>
