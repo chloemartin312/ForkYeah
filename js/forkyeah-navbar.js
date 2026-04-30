@@ -120,18 +120,28 @@ export class ForkYeahNavbar extends LitElement {
  static get styles() {
    return css`
      :host {
-       display: block;
-       width: 100%;
-       font-family: 'Barlow Condensed', sans-serif;
-     }
+      display: block;
+      width: 100%;
+      font-family: 'Barlow Condensed', sans-serif;
+      --red: #ff0019;
+      --background: #ffffff;
+      --text: #111;
+    }
 
-     nav {
-       display: flex;
-       align-items: stretch;
-       border-bottom: 10px solid #ff0019;
-       background: #fff;
-       min-width: 0;
-     }
+    @media (prefers-color-scheme: dark) {
+      :host {
+        --red: #ff3347;
+        --background: #181717;
+        --text: #ffffff;
+      }
+    }
+
+    nav {
+      display: flex;
+      align-items: stretch;
+      border-bottom: 10px solid var(--red);
+      background: var(--background);
+    }
 
      .brand {
        font-weight: 600;
@@ -141,7 +151,7 @@ export class ForkYeahNavbar extends LitElement {
        text-transform: uppercase;
        padding: 18px;
        flex-shrink: 0;
-       color: #ff0000;
+       color: var(--red);
      }
 
      .brand-right {
@@ -169,7 +179,7 @@ export class ForkYeahNavbar extends LitElement {
        top: 20%;
        bottom: 20%;
        left: 0;
-       border-left: 1px solid #ff0000;
+       border-left: 1px solid var(--red);
      }
 
      .filters {
@@ -192,7 +202,7 @@ export class ForkYeahNavbar extends LitElement {
        right: 0;
        top: 20%;
        bottom: 20%;
-       border-right: 1px solid #ff0000;
+       border-right: 1px solid var(--red);
      }
 
      .filter-wrap:last-child::after {
@@ -214,7 +224,7 @@ export class ForkYeahNavbar extends LitElement {
        font-size: 22px;
        letter-spacing: 0.1em;
        text-transform: uppercase;
-       color: #ff0000;
+       color: var(--text);
        min-width: 0;
        overflow: hidden;
      }
@@ -228,7 +238,7 @@ export class ForkYeahNavbar extends LitElement {
        font-weight: 700;
        letter-spacing: 0.08em;
        text-transform: uppercase;
-       color: #E8192C;
+       color: var(--red);
        line-height: 1;
        margin-bottom: 2px;
        white-space: nowrap;
@@ -239,7 +249,7 @@ export class ForkYeahNavbar extends LitElement {
 
      .chev {
        font-size: 8px;
-       color: #E8192C;
+       color: var(--red);
      }
 
      /* ── Dropdown base ── */
@@ -249,8 +259,8 @@ export class ForkYeahNavbar extends LitElement {
        top: 100%;
        left: 0;
        right: 0;
-       background: #fff;
-       border: 2px solid #E8192C;
+       background: var(--background);
+       border: 2px solid var(--red);
        border-top: none;
        z-index: 100;
        flex-direction: column;
@@ -266,8 +276,8 @@ export class ForkYeahNavbar extends LitElement {
      .country-search-wrap {
        position: sticky;
        top: 0;
-       background: #fff;
-       border-bottom: 1.5px solid #E8192C;
+       background: var(--background);
+       border-bottom: 1.5px solid var(--red2);
        z-index: 2;
        padding: 6px 7px;
        flex-shrink: 0;
@@ -281,22 +291,22 @@ export class ForkYeahNavbar extends LitElement {
        font-weight: 600;
        letter-spacing: 0.07em;
        text-transform: uppercase;
-       color: #E8192C;
-       border: 1.5px solid #E8192C;
-       background: #fff;
+       color: var(--red);
+       border: 1.5px solid var(--red);
+       background: var(--background);
        padding: 5px 8px;
        outline: none;
      }
 
      .country-search::placeholder {
-       color: #E8192C;
+       color: var(--red);
        opacity: 0.4;
        font-style: italic;
        text-transform: none;
      }
 
      .country-search:focus {
-       background: #fff5f5;
+       background: var(--background);
      }
 
      .no-results {
@@ -305,7 +315,7 @@ export class ForkYeahNavbar extends LitElement {
        font-weight: 700;
        letter-spacing: 0.1em;
        text-transform: uppercase;
-       color: #E8192C;
+       color: var(--red);
        opacity: 0.5;
        padding: 12px 14px;
        text-align: center;
@@ -320,8 +330,8 @@ export class ForkYeahNavbar extends LitElement {
        text-transform: uppercase;
        padding: 10px 14px;
        cursor: pointer;
-       color: #111;
-       border-bottom: 1px solid #f0f0f0;
+       color: var(--text);
+       border-bottom: 1px solid var(--border);
        flex-shrink: 0;
      }
 
@@ -331,8 +341,8 @@ export class ForkYeahNavbar extends LitElement {
 
      .dropdown-item:hover,
      .dropdown-item.selected {
-       background: #E8192C;
-       color: #fff;
+       background: var(--red);
+       color: var(--text);
      }
    `;
  }
